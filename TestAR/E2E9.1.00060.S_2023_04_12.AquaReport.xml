@@ -1,0 +1,1434 @@
+<?xml version="1.0" ?>
+<PipelineAquaReport>
+  <ProjectStructure>
+    <ProposalCode>E2E9.1.00060.S</ProposalCode>
+    <ProcessingRequestEntityId>Undefined</ProcessingRequestEntityId>
+    <ProcessingProcedure>hifa_calimage</ProcessingProcedure>
+    <OusEntityId>uid://A001/X2df7/X133</OusEntityId>
+    <OusPartId>X1555207142</OusPartId>
+    <OusStatusEntityId>uid://A001/X2df7/X13d</OusStatusEntityId>
+  </ProjectStructure>
+  <QaSummary>
+    <ReportDate>2023-04-12 22:34:26</ReportDate>
+    <ProcessingTime>6:46:16</ProcessingTime>
+    <CasaVersion>6.4.1.12</CasaVersion>
+    <PipelineVersion>2022.2.0.64</PipelineVersion>
+    <FinalScore>Undefined</FinalScore>
+  </QaSummary>
+  <QaPerStage>
+    <Stage Name="hifa_importdata" Number="1">
+      <RepresentativeScore Reason="Neither primary or backup flux service could be queried.  ASDM values used." Score="0.3">
+        <Metric Name="score_fluxservice" Units="flux service" Value="0.300"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="All required calibration intents were found in uid___A002_Xfd80cd_X28f7.ms." Score="1.0">
+        <Metric Name="MissingIntentsMark" Units="Measure of missing scan intents" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="No model data column found in uid___A002_Xfd80cd_X28f7.ms" Score="1.0">
+        <Metric Name="score_ms_model_data_column_present" Units="Fraction of MSes with modeldata columns present" Value="0.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="No HISTORY entries found in uid___A002_Xfd80cd_X28f7.ms" Score="1.0">
+        <Metric Name="score_ms_history_entries_present" Units="Fraction of MSes with HISTORY" Value="0.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="uid___A002_Xfd80cd_X28f7.ms forms one continuous observing session." Score="1.0">
+        <Metric Name="score_contiguous_session" Units="Non-contiguous measurement sets present" Value="0.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="All source coordinates OK in uid___A002_Xfd80cd_X28f7.ms." Score="1.0">
+        <Metric Name="score_ephemeris_coordinates" Units="Score based on presence of ephemeris coordinates" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Science spw names match virtual spw lookup table" Score="1.0">
+        <Metric Name="score_spwnames" Units="spw names match virtual spw name lookup table" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="No polarization calibrations found: uid___A002_Xfd80cd_X28f7.ms" Score="1.0">
+        <Metric Name="score_polintents" Units="MS score based on presence of polarisation data" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="No high frequency ['10', '9'] band data were found in uid___A002_Xfd80cd_X28f7.ms." Score="1.0">
+        <Metric Name="score_bands" Units="MS score based on presence of high-frequency data" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Phase calibrations found for all target spws in uid___A002_Xfd80cd_X28f7.ms." Score="1.0">
+        <Metric Name="score_bwswitching" Units="Number of MSes without phase calibrators" Value="0.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Science spw names match virtual spw lookup table" Score="1.0">
+        <Metric Name="score_spwnames" Units="spw names match virtual spw name lookup table" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Neither primary or backup flux service could be queried.  ASDM values used." Score="0.3">
+        <Metric Name="score_fluxservice" Units="flux service" Value="0.300"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="flux.csv exists on disk" Score="1.0">
+        <Metric Name="score_fluxcsv" Units="flux csv" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="No warning messages from the flux catalog service." Score="1.0">
+        <Metric Name="score_fluxservice_messaging" Units="flux service messaging" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Flux catalog service status queries returned code 0 or 1." Score="1.0">
+        <Metric Name="score_fluxservice_statuscode" Units="flux service status code" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Calibrators are different objects." Score="1.0">
+        <Metric Name="score_samecalobjects" Units="samecalobjects" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_flagdata" Number="2">
+      <RepresentativeScore Reason="8.51% data in uid___A002_Xfd80cd_X28f7.ms flagged by online, shadow, qa0, qa2, before and template flagging agents" Score="0.93609875287864">
+        <Metric Name="%OnlineShadowTemplateFlags" Units="Fraction of data newly flagged by online, shadow, and template agents" Value="8.515"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="8.51% data in uid___A002_Xfd80cd_X28f7.ms flagged by online, shadow, qa0, qa2, before and template flagging agents" Score="0.93609875287864">
+        <Metric Name="%OnlineShadowTemplateFlags" Units="Fraction of data newly flagged by online, shadow, and template agents" Value="8.515"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="No SpW(s) flagged for low transmission" Score="1.0">
+        <Metric Name="LowTransmissionFlags" Units="SpW(s) flagged by low transmission agent." Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_fluxcalflag" Number="3">
+      <RepresentativeScore Reason="0.00% of data in uid___A002_Xfd80cd_X28f7.ms was newly flagged" Score="1.0">
+        <Metric Name="%FluxcalFlags" Units="Percentage of flux calibrator newly flagged" Value="0.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="0.00% of data in uid___A002_Xfd80cd_X28f7.ms was newly flagged" Score="1.0">
+        <Metric Name="%FluxcalFlags" Units="Percentage of flux calibrator newly flagged" Value="0.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="No mapped science spws for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+        <Metric Name="%ReferenceSpwmapWarning" Units="Reference spw map warning" Value="0.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_rawflagchans" Number="4">
+      <RepresentativeScore Reason="0.00% of data in uid___A002_Xfd80cd_X28f7.ms was newly flagged" Score="1.0">
+        <Metric Name="%RawBadchansFlags" Units="Percentage raw bad channels data newly flagged" Value="0.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="0.00% of data in uid___A002_Xfd80cd_X28f7.ms was newly flagged" Score="1.0">
+        <Metric Name="%RawBadchansFlags" Units="Percentage raw bad channels data newly flagged" Value="0.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Flagging views exist for uid___A002_Xfd80cd_X28f7.ms" Score="1.0">
+        <Metric Name="ValidFlaggingView" Units="Valid flagging view" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_refant" Number="5">
+      <RepresentativeScore Reason="Reference antenna for uid___A002_Xfd80cd_X28f7.ms was selected successfully" Score="1.0">
+        <Metric Name="RefantQAHandler" Units="Reference antenna was identified" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="Reference antenna for uid___A002_Xfd80cd_X28f7.ms was selected successfully" Score="1.0">
+        <Metric Name="RefantQAHandler" Units="Reference antenna was identified" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="h_tsyscal" Number="6">
+      <RepresentativeScore Reason="Tsys spw map is complete for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+        <Metric Name="score_tsysspwmap" Units="Fraction of unmapped Tsys windows" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="Tsys spw map is complete for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+        <Metric Name="score_tsysspwmap" Units="Fraction of unmapped Tsys windows" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_tsysflag" Number="7">
+      <RepresentativeScore Reason="7.57% of data in uid___A002_Xfd80cd_X28f7.ms.h_tsyscal.s6_1.tsyscal.tbl was newly flagged" Score="0.9714376335470085">
+        <Metric Name="%TsysCaltableFlags" Units="Percentage Tsys caltable newly flagged" Value="7.571"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="7.57% of data in uid___A002_Xfd80cd_X28f7.ms.h_tsyscal.s6_1.tsyscal.tbl was newly flagged" Score="0.9714376335470085">
+        <Metric Name="%TsysCaltableFlags" Units="Percentage Tsys caltable newly flagged" Value="7.571"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_antpos" Number="8">
+      <RepresentativeScore Reason="1 nonzero antenna position offsets for uid___A002_Xfd80cd_X28f7.ms " Score="0.9">
+        <Metric Name="score_number_antenna_offsets" Units="Number of antennas requiring position offset correction" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="1 nonzero antenna position offsets for uid___A002_Xfd80cd_X28f7.ms " Score="0.9">
+        <Metric Name="score_number_antenna_offsets" Units="Number of antennas requiring position offset correction" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_wvrgcalflag" Number="9">
+      <RepresentativeScore Reason="phase RMS improvement was 1.16 for uid___A002_Xfd80cd_X28f7.ms - Flagged antenna(s)" Score="0.8488888888888889">
+        <Metric Name="PhaseRmsRatio" Units="Phase RMS improvement after applying WVR correction" Value="1.158"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="phase RMS improvement was 1.16 for uid___A002_Xfd80cd_X28f7.ms - Flagged antenna(s)" Score="0.8488888888888889">
+        <Metric Name="PhaseRmsRatio" Units="Phase RMS improvement after applying WVR correction" Value="1.158"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_lowgainflag" Number="10">
+      <RepresentativeScore Reason="0.00% of data in uid___A002_Xfd80cd_X28f7.ms was newly flagged" Score="1.0">
+        <Metric Name="%HighLowGainFlags" Units="Percentage of high or low gain flag data newly flagged" Value="0.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="0.00% of data in uid___A002_Xfd80cd_X28f7.ms was newly flagged" Score="1.0">
+        <Metric Name="%HighLowGainFlags" Units="Percentage of high or low gain flag data newly flagged" Value="0.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Flagging views exist for uid___A002_Xfd80cd_X28f7.ms" Score="1.0">
+        <Metric Name="ValidFlaggingView" Units="Valid flagging view" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_setmodels" Number="11">
+      <RepresentativeScore Reason="All expected flux calibrator measurements present for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+        <Metric Name="score_setjy_measurements" Units="Ratio of number of flux measurements to number expected" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="All expected flux calibrator measurements present for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+        <Metric Name="score_setjy_measurements" Units="Ratio of number of flux measurements to number expected" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_bandpassflag" Number="12">
+      <RepresentativeScore Reason="1.11% of unflagged data with intent BANDPASS in uid___A002_Xfd80cd_X28f7.ms was newly flagged." Score="0.9888558049583454">
+        <Metric Name="CorrectedampflagQAHandler" Units="Fraction of unflagged BANDPASS data newly flagged" Value="0.011"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="1.11% of unflagged data with intent BANDPASS in uid___A002_Xfd80cd_X28f7.ms was newly flagged." Score="0.9888558049583454">
+        <Metric Name="CorrectedampflagQAHandler" Units="Fraction of unflagged BANDPASS data newly flagged" Value="0.011"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_bandpass" Number="13">
+      <RepresentativeScore Reason="Lowest score for phase derivative is 0.99 (uid___A002_Xfd80cd_X28f7.ms DA63 spw 17 XX)" Score="0.9929468415047277">
+        <Metric Name="BandpassQAPool" Units="Minimum of bpcal QA scores" Value="0.993"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="Lowest score for amplitude SNR is 1.00 (uid___A002_Xfd80cd_X28f7.ms unknown origin)" Score="1.0">
+        <Metric Name="BandpassQAPool" Units="Minimum of bpcal QA scores" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Lowest score for phase derivative is 0.99 (uid___A002_Xfd80cd_X28f7.ms DA63 spw 17 XX)" Score="0.9929468415047277">
+        <Metric Name="BandpassQAPool" Units="Minimum of bpcal QA scores" Value="0.993"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_spwphaseup" Number="14">
+      <RepresentativeScore Reason="The caltable file uid___A002_Xfd80cd_X28f7.ms.hifa_spwphaseup.s14_3.spw17_19_21_23.solintinf.gpcal.tbl for uid___A002_Xfd80cd_X28f7.ms was created" Score="1.0">
+        <Metric Name="score_path_exists" Units="Path exists on disk" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="The caltable file uid___A002_Xfd80cd_X28f7.ms.hifa_spwphaseup.s14_3.spw17_19_21_23.solintinf.gpcal.tbl for uid___A002_Xfd80cd_X28f7.ms was created" Score="1.0">
+        <Metric Name="score_path_exists" Units="Path exists on disk" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="For uid___A002_Xfd80cd_X28f7.ms, field=J2349-4932 (intent=PHASE), SpW=17, the median achieved SNR (280.1) is &gt; 75% of the phase SNR threshold (32.0)." Score="1.0">
+        <Metric Name="score_phaseup_spw_median_snr" Units="Median SNR" Value="280.149"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="17"/>
+      </SubScore>
+      <SubScore Reason="For uid___A002_Xfd80cd_X28f7.ms, field=J2349-4932 (intent=PHASE), SpW=19, the median achieved SNR (286.5) is &gt; 75% of the phase SNR threshold (32.0)." Score="1.0">
+        <Metric Name="score_phaseup_spw_median_snr" Units="Median SNR" Value="286.521"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="19"/>
+      </SubScore>
+      <SubScore Reason="For uid___A002_Xfd80cd_X28f7.ms, field=J2349-4932 (intent=PHASE), SpW=21, the median achieved SNR (252.9) is &gt; 75% of the phase SNR threshold (32.0)." Score="1.0">
+        <Metric Name="score_phaseup_spw_median_snr" Units="Median SNR" Value="252.866"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="21"/>
+      </SubScore>
+      <SubScore Reason="For uid___A002_Xfd80cd_X28f7.ms, field=J2349-4932 (intent=PHASE), SpW=23, the median achieved SNR (231.1) is &gt; 75% of the phase SNR threshold (32.0)." Score="1.0">
+        <Metric Name="score_phaseup_spw_median_snr" Units="Median SNR" Value="231.089"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="23"/>
+      </SubScore>
+      <SubScore Reason="Excellent stability: The baseline-based median phase RMS for baselines longer than P80 is 5.93deg over the cycle time for uid___A002_Xfd80cd_X28f7.ms." Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_gfluxscale" Number="15">
+      <RepresentativeScore Reason="All expected derived fluxes present for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+        <Metric Name="score_missing_derived_fluxes" Units="Ratio of number of flux measurements to number expected" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="All expected derived fluxes present for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+        <Metric Name="score_missing_derived_fluxes" Units="Ratio of number of flux measurements to number expected" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="No low SNR derived fluxes for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+        <Metric Name="score_derived_fluxes_snr" Units="Minimum SNR of derived flux measurement" Value="2716.460"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Ratio of &lt;i&gt;S&lt;/i&gt;&lt;sub&gt;calibrated&lt;/sub&gt;/&lt;i&gt;S&lt;/i&gt;&lt;sub&gt;catalogue&lt;/sub&gt; for J2349-4932 (PHASE,WVR,ATMOSPHERE) spw 17 in uid___A002_Xfd80cd_X28f7.ms differs by 0% from the ratio for the highest SNR spw (19)" Score="1.0">
+        <Metric Name="score_gfluxscale_k_spw" Units="Number of spws with missing SNR measurements" Value="0.999"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Ratio of &lt;i&gt;S&lt;/i&gt;&lt;sub&gt;calibrated&lt;/sub&gt;/&lt;i&gt;S&lt;/i&gt;&lt;sub&gt;catalogue&lt;/sub&gt; for J2349-4932 (PHASE,WVR,ATMOSPHERE) spw 21 in uid___A002_Xfd80cd_X28f7.ms differs by 0% from the ratio for the highest SNR spw (19)" Score="1.0">
+        <Metric Name="score_gfluxscale_k_spw" Units="Number of spws with missing SNR measurements" Value="1.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Ratio of &lt;i&gt;S&lt;/i&gt;&lt;sub&gt;calibrated&lt;/sub&gt;/&lt;i&gt;S&lt;/i&gt;&lt;sub&gt;catalogue&lt;/sub&gt; for J2349-4932 (PHASE,WVR,ATMOSPHERE) spw 23 in uid___A002_Xfd80cd_X28f7.ms differs by 0% from the ratio for the highest SNR spw (19)" Score="1.0">
+        <Metric Name="score_gfluxscale_k_spw" Units="Number of spws with missing SNR measurements" Value="0.999"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_timegaincal" Number="16">
+      <RepresentativeScore Reason="Potential phase offset outliers for uid___A002_Xfd80cd_X28f7.ms SPW 21 Antenna DA60" Score="0.8">
+        <Metric Name="phase offsets mean" Units="degrees" Value="5.020"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="21"/>
+      </RepresentativeScore>
+      <SubScore Reason="Potential phase offset outliers for uid___A002_Xfd80cd_X28f7.ms SPW 21 Antenna DA60" Score="0.8">
+        <Metric Name="phase offsets mean" Units="degrees" Value="5.020"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="21"/>
+      </SubScore>
+      <SubScore Reason="Phase offsets for uid___A002_Xfd80cd_X28f7.ms SPW 17,19,23 within range" Score="1.0">
+        <Metric Name="Stot / Mean / SD / MaxOff" Units="degrees" Value="-999.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="17,19,23"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_targetflag" Number="17">
+      <RepresentativeScore Reason="0.00% of unflagged data with intent TARGET in uid___A002_Xfd80cd_X28f7.ms was newly flagged." Score="1.0">
+        <Metric Name="CorrectedampflagQAHandler" Units="Fraction of unflagged TARGET data newly flagged" Value="0.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="0.00% of unflagged data with intent TARGET in uid___A002_Xfd80cd_X28f7.ms was newly flagged." Score="1.0">
+        <Metric Name="CorrectedampflagQAHandler" Units="Fraction of unflagged TARGET data newly flagged" Value="0.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_applycal" Number="18">
+      <RepresentativeScore Reason="Phase vs frequency slope outliers for uid___A002_Xfd80cd_X28f7.ms PHASE calibrator spw 19 DA60 YY scan all" Score="0.9">
+        <Metric Name="phase_vs_freq.slope" Units="sigma deviation from reference fit" Value="83.870"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="19"/>
+      </RepresentativeScore>
+      <SubScore Reason="For uid___A002_Xfd80cd_X28f7.ms, intent(s): TARGET, 4.55% of the data was newly flagged by applycal flagging agents, for a total of 23.57% flagged." Score="0.9999999999999999">
+        <Metric Name="%ApplycalFlags" Units="Percentage newly flagged by applycal" Value="4.550"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="No amp vs frequency outliers detected for uid___A002_Xfd80cd_X28f7.ms" Score="1.0">
+        <Metric Name="amp_vs_freq" Units="number of outliers" Value="0.000"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Phase vs frequency outliers for uid___A002_Xfd80cd_X28f7.ms PHASE calibrator spw 19 DA60 scan all" Score="0.9">
+        <Metric Name="phase_vs_freq.slope" Units="sigma deviation from reference fit" Value="83.870"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="19"/>
+      </SubScore>
+      <SubScore Reason="Phase vs frequency outliers for uid___A002_Xfd80cd_X28f7.ms PHASE calibrator spw 19" Score="0.9">
+        <Metric Name="phase_vs_freq.slope" Units="sigma deviation from reference fit" Value="83.870"/>
+        <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="19"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_makeimlist" Number="19">
+      <RepresentativeScore Reason="All clean targets defined" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="All clean targets defined" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_makeimages" Number="20">
+      <RepresentativeScore Reason="RMS vs. DR corrected sensitivity. Field: J2349-4932 Intent: PHASE SPW: 23" Score="0.9999827224016311">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(6.54083693422329e-05, 0.0002155615097847314)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2357-5311 Intent: BANDPASS SPW: 17" Score="0.9999905246196994">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(6.980732358448168e-05, 0.0003307761679580416)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2357-5311 Intent: BANDPASS SPW: 19" Score="0.99999085303041">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(6.664584108805606e-05, 0.0003239922284552023)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2357-5311 Intent: BANDPASS SPW: 21" Score="0.9999898489450092">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(7.237603418120589e-05, 0.00032676381544085795)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2357-5311 Intent: BANDPASS SPW: 23" Score="0.9999898720603635">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(7.506041677248613e-05, 0.0003394142797994056)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2349-4932 Intent: PHASE SPW: 17" Score="0.9999839130225174">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(5.8706462394118176e-05, 0.00020084221360699303)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2349-4932 Intent: PHASE SPW: 19" Score="0.9999856624141499">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(5.399257762154811e-05, 0.00019673695659448706)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2349-4932 Intent: PHASE SPW: 21" Score="0.9999838826536407">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(5.999113040898114e-05, 0.00020503135990362743)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2349-4932 Intent: PHASE SPW: 23" Score="0.9999827224016311">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(6.54083693422329e-05, 0.0002155615097847314)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_makeimlist" Number="21">
+      <RepresentativeScore Reason="No clean targets expected." Score="None">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="No clean targets expected." Score="None">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_makeimages" Number="22">
+      <RepresentativeScore Reason="No imaging targets were defined" Score="None">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="No imaging targets were defined" Score="None">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_imageprecheck" Number="23">
+      <RepresentativeScore Reason="Predicted robust=0.5 beam is within the PI requested range" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="Predicted robust=0.5 beam is within the PI requested range" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_checkproductsize" Number="24">
+      <RepresentativeScore Reason="No size mitigation needed" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="No size mitigation needed" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_renorm" Number="25">
+      <RepresentativeScore Reason="No QA scores registered for this task" Score="None">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+    </Stage>
+    <Stage Name="hifa_exportdata" Number="26">
+      <RepresentativeScore Reason="The pipeline processing request file has been exported" Score="1.0">
+        <Metric Name="score_file_exists" Units="File exists on disk" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="The pipeline processing request file has been exported" Score="1.0">
+        <Metric Name="score_file_exists" Units="File exists on disk" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="The pipeline web log file has been exported" Score="1.0">
+        <Metric Name="score_file_exists" Units="File exists on disk" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="The pipeline script file has been exported" Score="1.0">
+        <Metric Name="score_file_exists" Units="File exists on disk" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="The pipeline commands log file has been exported" Score="1.0">
+        <Metric Name="score_file_exists" Units="File exists on disk" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="The pipeline restore script file has been exported" Score="1.0">
+        <Metric Name="score_file_exists" Units="File exists on disk" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="No missing final flag version files" Score="1.0">
+        <Metric Name="score_flags_exist" Units="Number of missing flagging product files" Value="0.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="No missing final apply commands files" Score="1.0">
+        <Metric Name="score_applycmds_exist" Units="Number of missing apply command files" Value="0.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="No missing caltables files" Score="1.0">
+        <Metric Name="score_caltables_exist" Units="Number of missing caltables" Value="0.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="24 images were exported" Score="1.0">
+        <Metric Name="score_images_exist" Units="Number of exported images" Value="24.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_mstransform" Number="27">
+      <RepresentativeScore Reason="The science targets cont+line ms file uid___A002_Xfd80cd_X28f7_targets.ms for  was created" Score="1.0">
+        <Metric Name="score_path_exists" Units="Path exists on disk" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="The science targets cont+line ms file uid___A002_Xfd80cd_X28f7_targets.ms for  was created" Score="1.0">
+        <Metric Name="score_path_exists" Units="Path exists on disk" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hifa_flagtargets" Number="28">
+      <RepresentativeScore Reason="Flag Summary off" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="Flag Summary off" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_makeimlist" Number="29">
+      <RepresentativeScore Reason="All clean targets defined" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="All clean targets defined" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_findcont" Number="30">
+      <RepresentativeScore Reason="Found continuum ranges" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="Found continuum ranges" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_uvcontfit" Number="31">
+      <RepresentativeScore Reason="The uv continuum fit table file uid___A002_Xfd80cd_X28f7_targets.ms.hif_uvcontfit.s31_1.SPT0020-51.uvcont.tbl for  was created" Score="1.0">
+        <Metric Name="score_path_exists" Units="Path exists on disk" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="The uv continuum fit table file uid___A002_Xfd80cd_X28f7_targets.ms.hif_uvcontfit.s31_1.SPT0020-51.uvcont.tbl for  was created" Score="1.0">
+        <Metric Name="score_path_exists" Units="Path exists on disk" Value="1.000"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_uvcontsub" Number="32">
+      <RepresentativeScore Reason="Continuum subtraction cal tables applied." Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="Continuum subtraction cal tables applied." Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_makeimages" Number="33">
+      <RepresentativeScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 21" Score="0.9999522104609961">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(2.6645690676331597e-05, 5.708105912843246e-05)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 17" Score="0.9999530480577759">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(2.4198007074897093e-05, 5.216385771295034e-05)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 19" Score="0.9999543988028878">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(2.243832085273887e-05, 4.887768826985601e-05)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 21" Score="0.9999522104609961">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(2.6645690676331597e-05, 5.708105912843246e-05)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 23" Score="0.9999542584047258">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(3.097043870097246e-05, 6.738895329510467e-05)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_makeimlist" Number="34">
+      <RepresentativeScore Reason="All clean targets defined" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="All clean targets defined" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_makeimages" Number="35">
+      <RepresentativeScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 17,19,21,23" Score="0.9999371974312197">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(1.4127012632583172e-05, 2.7575398599743357e-05)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 17,19,21,23" Score="0.9999371974312197">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(1.4127012632583172e-05, 2.7575398599743357e-05)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_makeimlist" Number="36">
+      <RepresentativeScore Reason="All clean targets defined" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="All clean targets defined" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="Continuum range found" Score="1.0">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_makeimages" Number="37">
+      <RepresentativeScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 17" Score="0.9985974962158675">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(0.00013430001511198896, 0.00012275927704423722)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 17" Score="0.9985974962158675">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(0.00013430001511198896, 0.00012275927704423722)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="MOM8 FC image for field SPT0020-51 virtspw 17 has a peak SNR of 3.1317 and no significant flux histogram asymmetry." Score="0.9997666079516174">
+        <Metric Name="score_mom8_fc_image" Units="Peak SNR / Histogram asymmetry, Max. segment size in beams, Max. segment fraction" Value="(3.1317137543045996, 0.07791452128123148, 0.19375607731147804, 4.002097098879813e-05)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 19" Score="0.9987390717878848">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(0.0001258829690357, 0.00011747005754906932)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="MOM8 FC image for field SPT0020-51 virtspw 19 has a peak SNR of 2.8250 and no significant flux histogram asymmetry." Score="0.9998079901302057">
+        <Metric Name="score_mom8_fc_image" Units="Peak SNR / Histogram asymmetry, Max. segment size in beams, Max. segment fraction" Value="(2.8250183993829845, 0.0748915586371238, 0.17633484088519927, 3.6704581139554894e-05)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 21" Score="0.9987710254281363">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(0.00014090452451685434, 0.00013214980253236353)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="MOM8 FC image for field SPT0020-51 virtspw 21 has a peak SNR of 3.1526 and no significant flux histogram asymmetry." Score="0.9998071079394519">
+        <Metric Name="score_mom8_fc_image" Units="Peak SNR / Histogram asymmetry, Max. segment size in beams, Max. segment fraction" Value="(3.1526411860062438, 0.08992212392229029, 0.17891910275281195, 3.6778734535691466e-05)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 23" Score="0.9988172937350279">
+        <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(0.0001546981873464095, 0.0001461837390286803)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+      <SubScore Reason="MOM8 FC image for field SPT0020-51 virtspw 23 has a peak SNR of 3.0604 and no significant flux histogram asymmetry." Score="0.9997408076150209">
+        <Metric Name="score_mom8_fc_image" Units="Peak SNR / Histogram asymmetry, Max. segment size in beams, Max. segment fraction" Value="(3.0604206843474455, 0.08907108916425976, 0.20725108373655352, 4.194533125160208e-05)"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_makeimlist" Number="38">
+      <RepresentativeScore Reason="No clean targets expected." Score="None">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="No clean targets expected." Score="None">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+    <Stage Name="hif_makeimages" Number="39">
+      <RepresentativeScore Reason="No imaging targets were defined" Score="None">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </RepresentativeScore>
+      <SubScore Reason="No imaging targets were defined" Score="None">
+        <Metric Name="Unknown metric" Units="" Value="N/A"/>
+        <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+      </SubScore>
+    </Stage>
+  </QaPerStage>
+  <QaPerTopic>
+    <Dataset Score="0.3">
+      <Stage Name="hifa_importdata" Number="1">
+        <RepresentativeScore Reason="Neither primary or backup flux service could be queried.  ASDM values used." Score="0.3">
+          <Metric Name="score_fluxservice" Units="flux service" Value="0.300"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="All required calibration intents were found in uid___A002_Xfd80cd_X28f7.ms." Score="1.0">
+          <Metric Name="MissingIntentsMark" Units="Measure of missing scan intents" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="No model data column found in uid___A002_Xfd80cd_X28f7.ms" Score="1.0">
+          <Metric Name="score_ms_model_data_column_present" Units="Fraction of MSes with modeldata columns present" Value="0.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="No HISTORY entries found in uid___A002_Xfd80cd_X28f7.ms" Score="1.0">
+          <Metric Name="score_ms_history_entries_present" Units="Fraction of MSes with HISTORY" Value="0.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="uid___A002_Xfd80cd_X28f7.ms forms one continuous observing session." Score="1.0">
+          <Metric Name="score_contiguous_session" Units="Non-contiguous measurement sets present" Value="0.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="All source coordinates OK in uid___A002_Xfd80cd_X28f7.ms." Score="1.0">
+          <Metric Name="score_ephemeris_coordinates" Units="Score based on presence of ephemeris coordinates" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Science spw names match virtual spw lookup table" Score="1.0">
+          <Metric Name="score_spwnames" Units="spw names match virtual spw name lookup table" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="No polarization calibrations found: uid___A002_Xfd80cd_X28f7.ms" Score="1.0">
+          <Metric Name="score_polintents" Units="MS score based on presence of polarisation data" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="No high frequency ['10', '9'] band data were found in uid___A002_Xfd80cd_X28f7.ms." Score="1.0">
+          <Metric Name="score_bands" Units="MS score based on presence of high-frequency data" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Phase calibrations found for all target spws in uid___A002_Xfd80cd_X28f7.ms." Score="1.0">
+          <Metric Name="score_bwswitching" Units="Number of MSes without phase calibrators" Value="0.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Science spw names match virtual spw lookup table" Score="1.0">
+          <Metric Name="score_spwnames" Units="spw names match virtual spw name lookup table" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Neither primary or backup flux service could be queried.  ASDM values used." Score="0.3">
+          <Metric Name="score_fluxservice" Units="flux service" Value="0.300"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="flux.csv exists on disk" Score="1.0">
+          <Metric Name="score_fluxcsv" Units="flux csv" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="No warning messages from the flux catalog service." Score="1.0">
+          <Metric Name="score_fluxservice_messaging" Units="flux service messaging" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Flux catalog service status queries returned code 0 or 1." Score="1.0">
+          <Metric Name="score_fluxservice_statuscode" Units="flux service status code" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Calibrators are different objects." Score="1.0">
+          <Metric Name="score_samecalobjects" Units="samecalobjects" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_applycal" Number="18">
+        <RepresentativeScore Reason="Phase vs frequency slope outliers for uid___A002_Xfd80cd_X28f7.ms PHASE calibrator spw 19 DA60 YY scan all" Score="0.9">
+          <Metric Name="phase_vs_freq.slope" Units="sigma deviation from reference fit" Value="83.870"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="19"/>
+        </RepresentativeScore>
+        <SubScore Reason="For uid___A002_Xfd80cd_X28f7.ms, intent(s): TARGET, 4.55% of the data was newly flagged by applycal flagging agents, for a total of 23.57% flagged." Score="0.9999999999999999">
+          <Metric Name="%ApplycalFlags" Units="Percentage newly flagged by applycal" Value="4.550"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="No amp vs frequency outliers detected for uid___A002_Xfd80cd_X28f7.ms" Score="1.0">
+          <Metric Name="amp_vs_freq" Units="number of outliers" Value="0.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Phase vs frequency outliers for uid___A002_Xfd80cd_X28f7.ms PHASE calibrator spw 19 DA60 scan all" Score="0.9">
+          <Metric Name="phase_vs_freq.slope" Units="sigma deviation from reference fit" Value="83.870"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="19"/>
+        </SubScore>
+        <SubScore Reason="Phase vs frequency outliers for uid___A002_Xfd80cd_X28f7.ms PHASE calibrator spw 19" Score="0.9">
+          <Metric Name="phase_vs_freq.slope" Units="sigma deviation from reference fit" Value="83.870"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="19"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hifa_imageprecheck" Number="23">
+        <RepresentativeScore Reason="Predicted robust=0.5 beam is within the PI requested range" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="Predicted robust=0.5 beam is within the PI requested range" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hifa_renorm" Number="25">
+        <RepresentativeScore Reason="No QA scores registered for this task" Score="None">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+      </Stage>
+      <Stage Name="hifa_exportdata" Number="26">
+        <RepresentativeScore Reason="The pipeline processing request file has been exported" Score="1.0">
+          <Metric Name="score_file_exists" Units="File exists on disk" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="The pipeline processing request file has been exported" Score="1.0">
+          <Metric Name="score_file_exists" Units="File exists on disk" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="The pipeline web log file has been exported" Score="1.0">
+          <Metric Name="score_file_exists" Units="File exists on disk" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="The pipeline script file has been exported" Score="1.0">
+          <Metric Name="score_file_exists" Units="File exists on disk" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="The pipeline commands log file has been exported" Score="1.0">
+          <Metric Name="score_file_exists" Units="File exists on disk" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="The pipeline restore script file has been exported" Score="1.0">
+          <Metric Name="score_file_exists" Units="File exists on disk" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="No missing final flag version files" Score="1.0">
+          <Metric Name="score_flags_exist" Units="Number of missing flagging product files" Value="0.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="No missing final apply commands files" Score="1.0">
+          <Metric Name="score_applycmds_exist" Units="Number of missing apply command files" Value="0.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="No missing caltables files" Score="1.0">
+          <Metric Name="score_caltables_exist" Units="Number of missing caltables" Value="0.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="24 images were exported" Score="1.0">
+          <Metric Name="score_images_exist" Units="Number of exported images" Value="24.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_mstransform" Number="27">
+        <RepresentativeScore Reason="The science targets cont+line ms file uid___A002_Xfd80cd_X28f7_targets.ms for  was created" Score="1.0">
+          <Metric Name="score_path_exists" Units="Path exists on disk" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="The science targets cont+line ms file uid___A002_Xfd80cd_X28f7_targets.ms for  was created" Score="1.0">
+          <Metric Name="score_path_exists" Units="Path exists on disk" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_uvcontfit" Number="31">
+        <RepresentativeScore Reason="The uv continuum fit table file uid___A002_Xfd80cd_X28f7_targets.ms.hif_uvcontfit.s31_1.SPT0020-51.uvcont.tbl for  was created" Score="1.0">
+          <Metric Name="score_path_exists" Units="Path exists on disk" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="The uv continuum fit table file uid___A002_Xfd80cd_X28f7_targets.ms.hif_uvcontfit.s31_1.SPT0020-51.uvcont.tbl for  was created" Score="1.0">
+          <Metric Name="score_path_exists" Units="Path exists on disk" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <FluxMeasurements Origin="hifa_importdata" Score="Undefined">
+        <FluxMeasurement Asdm="uid___A002_Xfd80cd_X28f7" ErrorJy="" Field="J2357-5311" FluxJy="0.670990" FrequencyGHz="162.367269" MsSpwId="17" SpwName="X1839784238#ALMA_RB_05#BB_1#SW-01#FULL_RES"/>
+        <FluxMeasurement Asdm="uid___A002_Xfd80cd_X28f7" ErrorJy="" Field="J2357-5311" FluxJy="0.666843" FrequencyGHz="163.659269" MsSpwId="19" SpwName="X1839784238#ALMA_RB_05#BB_2#SW-01#FULL_RES"/>
+        <FluxMeasurement Asdm="uid___A002_Xfd80cd_X28f7" ErrorJy="" Field="J2357-5311" FluxJy="0.635497" FrequencyGHz="174.050838" MsSpwId="21" SpwName="X1839784238#ALMA_RB_05#BB_3#SW-01#FULL_RES"/>
+        <FluxMeasurement Asdm="uid___A002_Xfd80cd_X28f7" ErrorJy="" Field="J2357-5311" FluxJy="0.631809" FrequencyGHz="175.350844" MsSpwId="23" SpwName="X1839784238#ALMA_RB_05#BB_4#SW-01#FULL_RES"/>
+        <FluxMeasurement Asdm="uid___A002_Xfd80cd_X28f7" ErrorJy="" Field="J2349-4932" FluxJy="0.214704" FrequencyGHz="162.367269" MsSpwId="17" SpwName="X1839784238#ALMA_RB_05#BB_1#SW-01#FULL_RES"/>
+        <FluxMeasurement Asdm="uid___A002_Xfd80cd_X28f7" ErrorJy="" Field="J2349-4932" FluxJy="0.214144" FrequencyGHz="163.659269" MsSpwId="19" SpwName="X1839784238#ALMA_RB_05#BB_2#SW-01#FULL_RES"/>
+        <FluxMeasurement Asdm="uid___A002_Xfd80cd_X28f7" ErrorJy="" Field="J2349-4932" FluxJy="0.209843" FrequencyGHz="174.050838" MsSpwId="21" SpwName="X1839784238#ALMA_RB_05#BB_3#SW-01#FULL_RES"/>
+        <FluxMeasurement Asdm="uid___A002_Xfd80cd_X28f7" ErrorJy="" Field="J2349-4932" FluxJy="0.209330" FrequencyGHz="175.350844" MsSpwId="23" SpwName="X1839784238#ALMA_RB_05#BB_4#SW-01#FULL_RES"/>
+      </FluxMeasurements>
+      <SensitivityEstimates Origin="hifa_imageprecheck" Score="1.0" StageNumber="23">
+        <Sensitivity Array="12m" BandwidthHz="62500000.0" BeamMajArcsec="0.718" BeamMinArcsec="0.477" BeamPosAngDeg="81.80889129638672" BwMode="repBW" CellXArcsec="0.095" CellYArcsec="0.095" EffectiveBandwidthHz="N/A" Field="SPT0020-51" Intent="TARGET" IsRepresentative="True" MsSpwId="21" PbcorImageMaxJyPerBeam="N/A" PbcorImageMinJyPerBeam="N/A" Robust="0.5" SensitivityJyPerBeam="9.56743815389113e-05" UVTaper="[]"/>
+        <Sensitivity Array="12m" BandwidthHz="6592006256.00058" BeamMajArcsec="0.736" BeamMinArcsec="0.48" BeamPosAngDeg="81.68385314941406" BwMode="aggBW" CellXArcsec="0.096" CellYArcsec="0.096" EffectiveBandwidthHz="N/A" Field="SPT0020-51" Intent="TARGET" IsRepresentative="True" MsSpwId="17,19,21,23" PbcorImageMaxJyPerBeam="N/A" PbcorImageMinJyPerBeam="N/A" Robust="0.5" SensitivityJyPerBeam="1.0540732042907982e-05" UVTaper="[]"/>
+      </SensitivityEstimates>
+    </Dataset>
+    <Flagging Score="0.9">
+      <Stage Name="hifa_flagdata" Number="2">
+        <RepresentativeScore Reason="8.51% data in uid___A002_Xfd80cd_X28f7.ms flagged by online, shadow, qa0, qa2, before and template flagging agents" Score="0.93609875287864">
+          <Metric Name="%OnlineShadowTemplateFlags" Units="Fraction of data newly flagged by online, shadow, and template agents" Value="8.515"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="8.51% data in uid___A002_Xfd80cd_X28f7.ms flagged by online, shadow, qa0, qa2, before and template flagging agents" Score="0.93609875287864">
+          <Metric Name="%OnlineShadowTemplateFlags" Units="Fraction of data newly flagged by online, shadow, and template agents" Value="8.515"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="No SpW(s) flagged for low transmission" Score="1.0">
+          <Metric Name="LowTransmissionFlags" Units="SpW(s) flagged by low transmission agent." Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hifa_fluxcalflag" Number="3">
+        <RepresentativeScore Reason="0.00% of data in uid___A002_Xfd80cd_X28f7.ms was newly flagged" Score="1.0">
+          <Metric Name="%FluxcalFlags" Units="Percentage of flux calibrator newly flagged" Value="0.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="0.00% of data in uid___A002_Xfd80cd_X28f7.ms was newly flagged" Score="1.0">
+          <Metric Name="%FluxcalFlags" Units="Percentage of flux calibrator newly flagged" Value="0.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="No mapped science spws for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+          <Metric Name="%ReferenceSpwmapWarning" Units="Reference spw map warning" Value="0.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_rawflagchans" Number="4">
+        <RepresentativeScore Reason="0.00% of data in uid___A002_Xfd80cd_X28f7.ms was newly flagged" Score="1.0">
+          <Metric Name="%RawBadchansFlags" Units="Percentage raw bad channels data newly flagged" Value="0.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="0.00% of data in uid___A002_Xfd80cd_X28f7.ms was newly flagged" Score="1.0">
+          <Metric Name="%RawBadchansFlags" Units="Percentage raw bad channels data newly flagged" Value="0.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Flagging views exist for uid___A002_Xfd80cd_X28f7.ms" Score="1.0">
+          <Metric Name="ValidFlaggingView" Units="Valid flagging view" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hifa_tsysflag" Number="7">
+        <RepresentativeScore Reason="7.57% of data in uid___A002_Xfd80cd_X28f7.ms.h_tsyscal.s6_1.tsyscal.tbl was newly flagged" Score="0.9714376335470085">
+          <Metric Name="%TsysCaltableFlags" Units="Percentage Tsys caltable newly flagged" Value="7.571"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="7.57% of data in uid___A002_Xfd80cd_X28f7.ms.h_tsyscal.s6_1.tsyscal.tbl was newly flagged" Score="0.9714376335470085">
+          <Metric Name="%TsysCaltableFlags" Units="Percentage Tsys caltable newly flagged" Value="7.571"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_lowgainflag" Number="10">
+        <RepresentativeScore Reason="0.00% of data in uid___A002_Xfd80cd_X28f7.ms was newly flagged" Score="1.0">
+          <Metric Name="%HighLowGainFlags" Units="Percentage of high or low gain flag data newly flagged" Value="0.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="0.00% of data in uid___A002_Xfd80cd_X28f7.ms was newly flagged" Score="1.0">
+          <Metric Name="%HighLowGainFlags" Units="Percentage of high or low gain flag data newly flagged" Value="0.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Flagging views exist for uid___A002_Xfd80cd_X28f7.ms" Score="1.0">
+          <Metric Name="ValidFlaggingView" Units="Valid flagging view" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_applycal" Number="18">
+        <RepresentativeScore Reason="Phase vs frequency slope outliers for uid___A002_Xfd80cd_X28f7.ms PHASE calibrator spw 19 DA60 YY scan all" Score="0.9">
+          <Metric Name="phase_vs_freq.slope" Units="sigma deviation from reference fit" Value="83.870"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="19"/>
+        </RepresentativeScore>
+        <SubScore Reason="For uid___A002_Xfd80cd_X28f7.ms, intent(s): TARGET, 4.55% of the data was newly flagged by applycal flagging agents, for a total of 23.57% flagged." Score="0.9999999999999999">
+          <Metric Name="%ApplycalFlags" Units="Percentage newly flagged by applycal" Value="4.550"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="No amp vs frequency outliers detected for uid___A002_Xfd80cd_X28f7.ms" Score="1.0">
+          <Metric Name="amp_vs_freq" Units="number of outliers" Value="0.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Phase vs frequency outliers for uid___A002_Xfd80cd_X28f7.ms PHASE calibrator spw 19 DA60 scan all" Score="0.9">
+          <Metric Name="phase_vs_freq.slope" Units="sigma deviation from reference fit" Value="83.870"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="19"/>
+        </SubScore>
+        <SubScore Reason="Phase vs frequency outliers for uid___A002_Xfd80cd_X28f7.ms PHASE calibrator spw 19" Score="0.9">
+          <Metric Name="phase_vs_freq.slope" Units="sigma deviation from reference fit" Value="83.870"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="19"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hifa_flagtargets" Number="28">
+        <RepresentativeScore Reason="Flag Summary off" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="Flag Summary off" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+    </Flagging>
+    <Calibration Score="0.8">
+      <Stage Name="h_tsyscal" Number="6">
+        <RepresentativeScore Reason="Tsys spw map is complete for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+          <Metric Name="score_tsysspwmap" Units="Fraction of unmapped Tsys windows" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="Tsys spw map is complete for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+          <Metric Name="score_tsysspwmap" Units="Fraction of unmapped Tsys windows" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hifa_antpos" Number="8">
+        <RepresentativeScore Reason="1 nonzero antenna position offsets for uid___A002_Xfd80cd_X28f7.ms " Score="0.9">
+          <Metric Name="score_number_antenna_offsets" Units="Number of antennas requiring position offset correction" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="1 nonzero antenna position offsets for uid___A002_Xfd80cd_X28f7.ms " Score="0.9">
+          <Metric Name="score_number_antenna_offsets" Units="Number of antennas requiring position offset correction" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hifa_wvrgcalflag" Number="9">
+        <RepresentativeScore Reason="phase RMS improvement was 1.16 for uid___A002_Xfd80cd_X28f7.ms - Flagged antenna(s)" Score="0.8488888888888889">
+          <Metric Name="PhaseRmsRatio" Units="Phase RMS improvement after applying WVR correction" Value="1.158"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="phase RMS improvement was 1.16 for uid___A002_Xfd80cd_X28f7.ms - Flagged antenna(s)" Score="0.8488888888888889">
+          <Metric Name="PhaseRmsRatio" Units="Phase RMS improvement after applying WVR correction" Value="1.158"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_setmodels" Number="11">
+        <RepresentativeScore Reason="All expected flux calibrator measurements present for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+          <Metric Name="score_setjy_measurements" Units="Ratio of number of flux measurements to number expected" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="All expected flux calibrator measurements present for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+          <Metric Name="score_setjy_measurements" Units="Ratio of number of flux measurements to number expected" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hifa_bandpassflag" Number="12">
+        <RepresentativeScore Reason="1.11% of unflagged data with intent BANDPASS in uid___A002_Xfd80cd_X28f7.ms was newly flagged." Score="0.9888558049583454">
+          <Metric Name="CorrectedampflagQAHandler" Units="Fraction of unflagged BANDPASS data newly flagged" Value="0.011"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="1.11% of unflagged data with intent BANDPASS in uid___A002_Xfd80cd_X28f7.ms was newly flagged." Score="0.9888558049583454">
+          <Metric Name="CorrectedampflagQAHandler" Units="Fraction of unflagged BANDPASS data newly flagged" Value="0.011"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hifa_bandpass" Number="13">
+        <RepresentativeScore Reason="Lowest score for phase derivative is 0.99 (uid___A002_Xfd80cd_X28f7.ms DA63 spw 17 XX)" Score="0.9929468415047277">
+          <Metric Name="BandpassQAPool" Units="Minimum of bpcal QA scores" Value="0.993"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="Lowest score for amplitude SNR is 1.00 (uid___A002_Xfd80cd_X28f7.ms unknown origin)" Score="1.0">
+          <Metric Name="BandpassQAPool" Units="Minimum of bpcal QA scores" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Lowest score for phase derivative is 0.99 (uid___A002_Xfd80cd_X28f7.ms DA63 spw 17 XX)" Score="0.9929468415047277">
+          <Metric Name="BandpassQAPool" Units="Minimum of bpcal QA scores" Value="0.993"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hifa_spwphaseup" Number="14">
+        <RepresentativeScore Reason="The caltable file uid___A002_Xfd80cd_X28f7.ms.hifa_spwphaseup.s14_3.spw17_19_21_23.solintinf.gpcal.tbl for uid___A002_Xfd80cd_X28f7.ms was created" Score="1.0">
+          <Metric Name="score_path_exists" Units="Path exists on disk" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="The caltable file uid___A002_Xfd80cd_X28f7.ms.hifa_spwphaseup.s14_3.spw17_19_21_23.solintinf.gpcal.tbl for uid___A002_Xfd80cd_X28f7.ms was created" Score="1.0">
+          <Metric Name="score_path_exists" Units="Path exists on disk" Value="1.000"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="For uid___A002_Xfd80cd_X28f7.ms, field=J2349-4932 (intent=PHASE), SpW=17, the median achieved SNR (280.1) is &gt; 75% of the phase SNR threshold (32.0)." Score="1.0">
+          <Metric Name="score_phaseup_spw_median_snr" Units="Median SNR" Value="280.149"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="17"/>
+        </SubScore>
+        <SubScore Reason="For uid___A002_Xfd80cd_X28f7.ms, field=J2349-4932 (intent=PHASE), SpW=19, the median achieved SNR (286.5) is &gt; 75% of the phase SNR threshold (32.0)." Score="1.0">
+          <Metric Name="score_phaseup_spw_median_snr" Units="Median SNR" Value="286.521"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="19"/>
+        </SubScore>
+        <SubScore Reason="For uid___A002_Xfd80cd_X28f7.ms, field=J2349-4932 (intent=PHASE), SpW=21, the median achieved SNR (252.9) is &gt; 75% of the phase SNR threshold (32.0)." Score="1.0">
+          <Metric Name="score_phaseup_spw_median_snr" Units="Median SNR" Value="252.866"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="21"/>
+        </SubScore>
+        <SubScore Reason="For uid___A002_Xfd80cd_X28f7.ms, field=J2349-4932 (intent=PHASE), SpW=23, the median achieved SNR (231.1) is &gt; 75% of the phase SNR threshold (32.0)." Score="1.0">
+          <Metric Name="score_phaseup_spw_median_snr" Units="Median SNR" Value="231.089"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="23"/>
+        </SubScore>
+        <SubScore Reason="Excellent stability: The baseline-based median phase RMS for baselines longer than P80 is 5.93deg over the cycle time for uid___A002_Xfd80cd_X28f7.ms." Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hifa_gfluxscale" Number="15">
+        <RepresentativeScore Reason="All expected derived fluxes present for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+          <Metric Name="score_missing_derived_fluxes" Units="Ratio of number of flux measurements to number expected" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="All expected derived fluxes present for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+          <Metric Name="score_missing_derived_fluxes" Units="Ratio of number of flux measurements to number expected" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="No low SNR derived fluxes for uid___A002_Xfd80cd_X28f7.ms " Score="1.0">
+          <Metric Name="score_derived_fluxes_snr" Units="Minimum SNR of derived flux measurement" Value="2716.460"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Ratio of &lt;i&gt;S&lt;/i&gt;&lt;sub&gt;calibrated&lt;/sub&gt;/&lt;i&gt;S&lt;/i&gt;&lt;sub&gt;catalogue&lt;/sub&gt; for J2349-4932 (PHASE,WVR,ATMOSPHERE) spw 17 in uid___A002_Xfd80cd_X28f7.ms differs by 0% from the ratio for the highest SNR spw (19)" Score="1.0">
+          <Metric Name="score_gfluxscale_k_spw" Units="Number of spws with missing SNR measurements" Value="0.999"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Ratio of &lt;i&gt;S&lt;/i&gt;&lt;sub&gt;calibrated&lt;/sub&gt;/&lt;i&gt;S&lt;/i&gt;&lt;sub&gt;catalogue&lt;/sub&gt; for J2349-4932 (PHASE,WVR,ATMOSPHERE) spw 21 in uid___A002_Xfd80cd_X28f7.ms differs by 0% from the ratio for the highest SNR spw (19)" Score="1.0">
+          <Metric Name="score_gfluxscale_k_spw" Units="Number of spws with missing SNR measurements" Value="1.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Ratio of &lt;i&gt;S&lt;/i&gt;&lt;sub&gt;calibrated&lt;/sub&gt;/&lt;i&gt;S&lt;/i&gt;&lt;sub&gt;catalogue&lt;/sub&gt; for J2349-4932 (PHASE,WVR,ATMOSPHERE) spw 23 in uid___A002_Xfd80cd_X28f7.ms differs by 0% from the ratio for the highest SNR spw (19)" Score="1.0">
+          <Metric Name="score_gfluxscale_k_spw" Units="Number of spws with missing SNR measurements" Value="0.999"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hifa_timegaincal" Number="16">
+        <RepresentativeScore Reason="Potential phase offset outliers for uid___A002_Xfd80cd_X28f7.ms SPW 21 Antenna DA60" Score="0.8">
+          <Metric Name="phase offsets mean" Units="degrees" Value="5.020"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="21"/>
+        </RepresentativeScore>
+        <SubScore Reason="Potential phase offset outliers for uid___A002_Xfd80cd_X28f7.ms SPW 21 Antenna DA60" Score="0.8">
+          <Metric Name="phase offsets mean" Units="degrees" Value="5.020"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="21"/>
+        </SubScore>
+        <SubScore Reason="Phase offsets for uid___A002_Xfd80cd_X28f7.ms SPW 17,19,23 within range" Score="1.0">
+          <Metric Name="Stot / Mean / SD / MaxOff" Units="degrees" Value="-999.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="PHASE" Session="N/A" Spw="17,19,23"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hifa_targetflag" Number="17">
+        <RepresentativeScore Reason="0.00% of unflagged data with intent TARGET in uid___A002_Xfd80cd_X28f7.ms was newly flagged." Score="1.0">
+          <Metric Name="CorrectedampflagQAHandler" Units="Fraction of unflagged TARGET data newly flagged" Value="0.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="0.00% of unflagged data with intent TARGET in uid___A002_Xfd80cd_X28f7.ms was newly flagged." Score="1.0">
+          <Metric Name="CorrectedampflagQAHandler" Units="Fraction of unflagged TARGET data newly flagged" Value="0.000"/>
+          <DataSelection Asdm="uid___A002_Xfd80cd_X28f7" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <FluxMeasurements Origin="hifa_gfluxscale" Score="1.0">
+        <FluxMeasurement Asdm="uid___A002_Xfd80cd_X28f7" ErrorJy="0.000098" Field="J2349-4932" FluxJy="0.314386" FrequencyGHz="162.367269" MsSpwId="17" SpwName="X1839784238#ALMA_RB_05#BB_1#SW-01#FULL_RES"/>
+        <FluxMeasurement Asdm="uid___A002_Xfd80cd_X28f7" ErrorJy="0.000092" Field="J2349-4932" FluxJy="0.313962" FrequencyGHz="163.659269" MsSpwId="19" SpwName="X1839784238#ALMA_RB_05#BB_2#SW-01#FULL_RES"/>
+        <FluxMeasurement Asdm="uid___A002_Xfd80cd_X28f7" ErrorJy="0.000103" Field="J2349-4932" FluxJy="0.307699" FrequencyGHz="174.050838" MsSpwId="21" SpwName="X1839784238#ALMA_RB_05#BB_3#SW-01#FULL_RES"/>
+        <FluxMeasurement Asdm="uid___A002_Xfd80cd_X28f7" ErrorJy="0.000113" Field="J2349-4932" FluxJy="0.306624" FrequencyGHz="175.350844" MsSpwId="23" SpwName="X1839784238#ALMA_RB_05#BB_4#SW-01#FULL_RES"/>
+      </FluxMeasurements>
+    </Calibration>
+    <Imaging Score="0.9985974962158675">
+      <Stage Name="hif_makeimlist" Number="19">
+        <RepresentativeScore Reason="All clean targets defined" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="All clean targets defined" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_makeimages" Number="20">
+        <RepresentativeScore Reason="RMS vs. DR corrected sensitivity. Field: J2349-4932 Intent: PHASE SPW: 23" Score="0.9999827224016311">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(6.54083693422329e-05, 0.0002155615097847314)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2357-5311 Intent: BANDPASS SPW: 17" Score="0.9999905246196994">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(6.980732358448168e-05, 0.0003307761679580416)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2357-5311 Intent: BANDPASS SPW: 19" Score="0.99999085303041">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(6.664584108805606e-05, 0.0003239922284552023)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2357-5311 Intent: BANDPASS SPW: 21" Score="0.9999898489450092">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(7.237603418120589e-05, 0.00032676381544085795)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2357-5311 Intent: BANDPASS SPW: 23" Score="0.9999898720603635">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(7.506041677248613e-05, 0.0003394142797994056)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2349-4932 Intent: PHASE SPW: 17" Score="0.9999839130225174">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(5.8706462394118176e-05, 0.00020084221360699303)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2349-4932 Intent: PHASE SPW: 19" Score="0.9999856624141499">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(5.399257762154811e-05, 0.00019673695659448706)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2349-4932 Intent: PHASE SPW: 21" Score="0.9999838826536407">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(5.999113040898114e-05, 0.00020503135990362743)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: J2349-4932 Intent: PHASE SPW: 23" Score="0.9999827224016311">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(6.54083693422329e-05, 0.0002155615097847314)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_makeimlist" Number="21">
+        <RepresentativeScore Reason="No clean targets expected." Score="None">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="No clean targets expected." Score="None">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_makeimages" Number="22">
+        <RepresentativeScore Reason="No imaging targets were defined" Score="None">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="No imaging targets were defined" Score="None">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_checkproductsize" Number="24">
+        <RepresentativeScore Reason="No size mitigation needed" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="No size mitigation needed" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_makeimlist" Number="29">
+        <RepresentativeScore Reason="All clean targets defined" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="All clean targets defined" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_findcont" Number="30">
+        <RepresentativeScore Reason="Found continuum ranges" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="Found continuum ranges" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_makeimages" Number="33">
+        <RepresentativeScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 21" Score="0.9999522104609961">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(2.6645690676331597e-05, 5.708105912843246e-05)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 17" Score="0.9999530480577759">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(2.4198007074897093e-05, 5.216385771295034e-05)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 19" Score="0.9999543988028878">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(2.243832085273887e-05, 4.887768826985601e-05)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 21" Score="0.9999522104609961">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(2.6645690676331597e-05, 5.708105912843246e-05)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 23" Score="0.9999542584047258">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(3.097043870097246e-05, 6.738895329510467e-05)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_makeimlist" Number="34">
+        <RepresentativeScore Reason="All clean targets defined" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="All clean targets defined" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_makeimages" Number="35">
+        <RepresentativeScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 17,19,21,23" Score="0.9999371974312197">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(1.4127012632583172e-05, 2.7575398599743357e-05)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 17,19,21,23" Score="0.9999371974312197">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(1.4127012632583172e-05, 2.7575398599743357e-05)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_makeimlist" Number="36">
+        <RepresentativeScore Reason="All clean targets defined" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="All clean targets defined" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="Continuum range found" Score="1.0">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_makeimages" Number="37">
+        <RepresentativeScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 17" Score="0.9985974962158675">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(0.00013430001511198896, 0.00012275927704423722)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 17" Score="0.9985974962158675">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(0.00013430001511198896, 0.00012275927704423722)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="MOM8 FC image for field SPT0020-51 virtspw 17 has a peak SNR of 3.1317 and no significant flux histogram asymmetry." Score="0.9997666079516174">
+          <Metric Name="score_mom8_fc_image" Units="Peak SNR / Histogram asymmetry, Max. segment size in beams, Max. segment fraction" Value="(3.1317137543045996, 0.07791452128123148, 0.19375607731147804, 4.002097098879813e-05)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 19" Score="0.9987390717878848">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(0.0001258829690357, 0.00011747005754906932)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="MOM8 FC image for field SPT0020-51 virtspw 19 has a peak SNR of 2.8250 and no significant flux histogram asymmetry." Score="0.9998079901302057">
+          <Metric Name="score_mom8_fc_image" Units="Peak SNR / Histogram asymmetry, Max. segment size in beams, Max. segment fraction" Value="(2.8250183993829845, 0.0748915586371238, 0.17633484088519927, 3.6704581139554894e-05)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 21" Score="0.9987710254281363">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(0.00014090452451685434, 0.00013214980253236353)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="MOM8 FC image for field SPT0020-51 virtspw 21 has a peak SNR of 3.1526 and no significant flux histogram asymmetry." Score="0.9998071079394519">
+          <Metric Name="score_mom8_fc_image" Units="Peak SNR / Histogram asymmetry, Max. segment size in beams, Max. segment fraction" Value="(3.1526411860062438, 0.08992212392229029, 0.17891910275281195, 3.6778734535691466e-05)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="RMS vs. DR corrected sensitivity. Field: SPT0020-51 Intent: TARGET SPW: 23" Score="0.9988172937350279">
+          <Metric Name="image rms / sensitivity" Units="Jy / beam" Value="(0.0001546981873464095, 0.0001461837390286803)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+        <SubScore Reason="MOM8 FC image for field SPT0020-51 virtspw 23 has a peak SNR of 3.0604 and no significant flux histogram asymmetry." Score="0.9997408076150209">
+          <Metric Name="score_mom8_fc_image" Units="Peak SNR / Histogram asymmetry, Max. segment size in beams, Max. segment fraction" Value="(3.0604206843474455, 0.08907108916425976, 0.20725108373655352, 4.194533125160208e-05)"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_makeimlist" Number="38">
+        <RepresentativeScore Reason="No clean targets expected." Score="None">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="No clean targets expected." Score="None">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <Stage Name="hif_makeimages" Number="39">
+        <RepresentativeScore Reason="No imaging targets were defined" Score="None">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </RepresentativeScore>
+        <SubScore Reason="No imaging targets were defined" Score="None">
+          <Metric Name="Unknown metric" Units="" Value="N/A"/>
+          <DataSelection Asdm="N/A" Intent="N/A" Session="N/A" Spw="N/A"/>
+        </SubScore>
+      </Stage>
+      <ImageSensitivities Origin="hif_makeimages" Score="0.9999827224016311" StageNumber="20"/>
+      <ImageSensitivities Origin="hif_makeimages" Score="None" StageNumber="22"/>
+      <ImageSensitivities Origin="hif_makeimages" Score="0.9999522104609961" StageNumber="33">
+        <Sensitivity Array="12m" BandwidthHz="1671953117.6916199" BeamMajArcsec="0.7783068418502808" BeamMinArcsec="0.5122619867324829" BeamPosAngDeg="83.01573944091797" BwMode="mfs" CellXArcsec="0.094" CellYArcsec="0.094" EffectiveBandwidthHz="1375060887.200012" Field="SPT0020-51" Intent="TARGET" IsRepresentative="False" MsSpwId="17" PbcorImageMaxJyPerBeam="0.0033372666221112013" PbcorImageMinJyPerBeam="-0.0003135789593216032" Robust="0.5" SensitivityJyPerBeam="2.4198007074897093e-05" UVTaper="[]"/>
+        <Sensitivity Array="12m" BandwidthHz="1781331062.697998" BeamMajArcsec="0.769279420375824" BeamMinArcsec="0.5111864805221558" BeamPosAngDeg="82.336181640625" BwMode="mfs" CellXArcsec="0.094" CellYArcsec="0.094" EffectiveBandwidthHz="1437563884.8000183" Field="SPT0020-51" Intent="TARGET" IsRepresentative="False" MsSpwId="19" PbcorImageMaxJyPerBeam="0.0034119989722967148" PbcorImageMinJyPerBeam="-0.00029533938504755497" Robust="0.5" SensitivityJyPerBeam="2.243832085273887e-05" UVTaper="[]"/>
+        <Sensitivity Array="12m" BandwidthHz="1390699018.651062" BeamMajArcsec="0.7196642756462097" BeamMinArcsec="0.4802637994289398" BeamPosAngDeg="82.06224060058594" BwMode="mfs" CellXArcsec="0.094" CellYArcsec="0.094" EffectiveBandwidthHz="1359437170.1999817" Field="SPT0020-51" Intent="TARGET" IsRepresentative="True" MsSpwId="21" PbcorImageMaxJyPerBeam="0.004000087734311819" PbcorImageMinJyPerBeam="-0.00031208281870931387" Robust="0.5" SensitivityJyPerBeam="2.6645690676331597e-05" UVTaper="[]"/>
+        <Sensitivity Array="12m" BandwidthHz="1218820154.4628296" BeamMajArcsec="0.7116045355796814" BeamMinArcsec="0.4747037887573242" BeamPosAngDeg="83.4200210571289" BwMode="mfs" CellXArcsec="0.094" CellYArcsec="0.094" EffectiveBandwidthHz="1187554499.600006" Field="SPT0020-51" Intent="TARGET" IsRepresentative="False" MsSpwId="23" PbcorImageMaxJyPerBeam="0.0040670339949429035" PbcorImageMinJyPerBeam="-0.0003516001161187887" Robust="0.5" SensitivityJyPerBeam="3.097043870097246e-05" UVTaper="[]"/>
+      </ImageSensitivities>
+      <ImageSensitivities Origin="hif_makeimages" Score="0.9999371974312197" StageNumber="35">
+        <Sensitivity Array="12m" BandwidthHz="14202706725.061768" BeamMajArcsec="0.7382693886756897" BeamMinArcsec="0.4819919764995575" BeamPosAngDeg="81.87018585205078" BwMode="cont" CellXArcsec="0.094" CellYArcsec="0.094" EffectiveBandwidthHz="5359616441.800018" Field="SPT0020-51" Intent="TARGET" IsRepresentative="True" MsSpwId="17,19,21,23" PbcorImageMaxJyPerBeam="0.0035860990174114704" PbcorImageMinJyPerBeam="-0.0001724240428302437" Robust="0.5" SensitivityJyPerBeam="1.4127012632583172e-05" UVTaper="[]"/>
+      </ImageSensitivities>
+      <ImageSensitivities Origin="hif_makeimages" Score="0.9985974962158675" StageNumber="37">
+        <Sensitivity Array="12m" BandwidthHz="15625691.900024414" BeamMajArcsec="0.7833917685531845" BeamMinArcsec="0.5137560504916399" BeamPosAngDeg="82.79152924485479" BwMode="cube" CellXArcsec="0.094" CellYArcsec="0.094" EffectiveBandwidthHz="41671875.0" Field="SPT0020-51" Intent="TARGET" IsRepresentative="False" MsSpwId="17" PbcorImageMaxJyPerBeam="0.0022583366371691227" PbcorImageMinJyPerBeam="-0.002431906759738922" Robust="0.5" SensitivityJyPerBeam="0.00013430001511198896" UVTaper="[]"/>
+        <Sensitivity Array="12m" BandwidthHz="15625694.400024414" BeamMajArcsec="0.7738574743270874" BeamMinArcsec="0.514321506023407" BeamPosAngDeg="82.0354232788086" BwMode="cube" CellXArcsec="0.094" CellYArcsec="0.094" EffectiveBandwidthHz="41671875.0" Field="SPT0020-51" Intent="TARGET" IsRepresentative="False" MsSpwId="19" PbcorImageMaxJyPerBeam="0.0020014566835016012" PbcorImageMinJyPerBeam="-0.0021431278437376022" Robust="0.5" SensitivityJyPerBeam="0.0001258829690357" UVTaper="[]"/>
+        <Sensitivity Array="12m" BandwidthHz="15625714.599975586" BeamMajArcsec="0.7242833547303117" BeamMinArcsec="0.4814110535664177" BeamPosAngDeg="81.842995559708" BwMode="cube" CellXArcsec="0.094" CellYArcsec="0.094" EffectiveBandwidthHz="41671875.0" Field="SPT0020-51" Intent="TARGET" IsRepresentative="True" MsSpwId="21" PbcorImageMaxJyPerBeam="0.0023600896820425987" PbcorImageMinJyPerBeam="-0.002562697045505047" Robust="0.5" SensitivityJyPerBeam="0.00014090452451685434" UVTaper="[]"/>
+        <Sensitivity Array="12m" BandwidthHz="15625717.100036621" BeamMajArcsec="0.7148338647297972" BeamMinArcsec="0.473731068072014" BeamPosAngDeg="82.83155242678289" BwMode="cube" CellXArcsec="0.094" CellYArcsec="0.094" EffectiveBandwidthHz="41671875.0" Field="SPT0020-51" Intent="TARGET" IsRepresentative="False" MsSpwId="23" PbcorImageMaxJyPerBeam="0.002962095895782113" PbcorImageMinJyPerBeam="-0.003109307261183858" Robust="0.5" SensitivityJyPerBeam="0.0001546981873464095" UVTaper="[]"/>
+      </ImageSensitivities>
+      <ImageSensitivities Origin="hif_makeimages" Score="None" StageNumber="39"/>
+    </Imaging>
+  </QaPerTopic>
+</PipelineAquaReport>
