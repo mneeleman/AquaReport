@@ -49,16 +49,22 @@ def compare_qastages(ar_file1, ar_file2, outfile='qa_stages.csv', outfile_id='w'
     columns2.insert(0, 'StageNumber')
     c1score, cnt1, c2score, cnt2 = ['AR1'], 0, ['AR2'], 0
     for col1 in columns1[1:]:
-        if list(el1)[cnt1].attrib['Name'] == col1:
-            c1score.append(list(el1)[cnt1].find('RepresentativeScore').attrib['Score'])
-            cnt1 += 1
-        else:
-            c1score.append('---')
-        if list(el2)[cnt2].attrib['Name'] == col1:
-            c2score.append(list(el2)[cnt2].find('RepresentativeScore').attrib['Score'])
-            cnt2 += 1
-        else:
-            c2score.append('---')
+        try:
+            if list(el1)[cnt1].attrib['Name'] == col1:
+                c1score.append(list(el1)[cnt1].find('RepresentativeScore').attrib['Score'])
+                cnt1 += 1
+            else:
+                c1score.append('None')
+        except IndexError:
+            c1score.append('None')
+        try:
+            if list(el2)[cnt2].attrib['Name'] == col1:
+                c2score.append(list(el2)[cnt2].find('RepresentativeScore').attrib['Score'])
+                cnt2 += 1
+            else:
+                c2score.append('None')
+        except IndexError:
+            c2score.append('None')
     with open(outfile, outfile_id, newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(columns1)
@@ -124,11 +130,11 @@ def _compare_xml_children_text_(xml1, xml2, element_name):
         try:
             c1text.append(el1.find(column).text)
         except AttributeError:
-            c1text.append('---')
+            c1text.append('None')
         try:
             c2text.append(el2.find(column).text)
         except AttributeError:
-            c2text.append('---')
+            c2text.append('None')
     return columns, c1text, c2text
 
 
@@ -145,15 +151,21 @@ def compare_stagescore(score1, score2, to_array=True):
     stg_cnt1, stg_cnt2, diff = 1, 1, {}
     for stage_num in range(len(rep_stages)):
         name = rep_stages[str(stage_num + 1)]['Name']
-        if score1[str(stg_cnt1)]['Name'] == name:
-            sc1 = score1[str(stg_cnt1)]['Score']
-            stg_cnt1 += 1
-        else:
+        try:
+            if score1[str(stg_cnt1)]['Name'] == name:
+                sc1 = score1[str(stg_cnt1)]['Score']
+                stg_cnt1 += 1
+            else:
+                sc1 = 'None'
+        except KeyError:
             sc1 = 'None'
-        if score2[str(stg_cnt2)]['Name'] == name:
-            sc2 = score2[str(stg_cnt2)]['Score']
-            stg_cnt2 += 1
-        else:
+        try:
+            if score2[str(stg_cnt2)]['Name'] == name:
+                sc2 = score2[str(stg_cnt2)]['Score']
+                stg_cnt2 += 1
+            else:
+                sc2 = 'None'
+        except KeyError:
             sc2 = 'None'
         if sc1 != 'None' and sc2 != 'None':
             diff[stage_num] = {'Number': stage_num + 1, 'Name': name, 'Diff': __calc_diff__(sc1, sc2)}
@@ -170,7 +182,7 @@ def compare_stagescore(score1, score2, to_array=True):
 def get_flux(arx):
     flux = {}
     for fm in arx.iter('FluxMeasurement'):
-        name = fm.attrib['Field'] + ':' + fm.attrib['MsSpwId']
+        name = fm.attrib['Field'] + ':' + fm.attrib['MsSpwId'] + ':Flux'
         if name not in flux:
             flux[name] = {'flux1': fm.attrib['FluxJy'], 'flux2': 'None'}
         else:
@@ -262,7 +274,7 @@ def __populate_sensdict__(sensdict, attrib):
                'Bmin': attrib.get('BeamMinArcsec', 'None'),
                'Bpa': attrib.get('BeamPosAngDeg', 'None'),
                'Max': attrib.get('PbcorImageMaxJyPerBeam', 'None'),
-               'Min': attrib.get('PbcorImageMinJyPerBeam', 'none')}
+               'Min': attrib.get('PbcorImageMinJyPerBeam', 'None')}
     if attrib['Field'] + ':' + attrib['Intent'] not in sensdict:
         sensdict[attrib['Field'] + ':' + attrib['Intent']] = {}
     if (attrib['MsSpwId'] + ':' + attrib['BwMode']) not in sensdict[attrib['Field'] + ':' + attrib['Intent']]:
@@ -321,7 +333,3 @@ def get_representative_score(arx, stage_number):
             break
     return representative_score
 
-
-# single dish pipeline
-# scores
-# flagging in %, beam change in %, rms in %, max/min in %
