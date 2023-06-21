@@ -114,7 +114,7 @@ def compare_qatopic(ar_file1, ar_file2, flux_measurements=True, sensitivities=Tr
 
 
 def compare_aquareports(ar_file1, ar_file2, outfile='compare_aq.csv'):
-    compare_projectstructure(ar_file1, ar_file2, outfile=outfile, outfile_id='w')
+    compare_projectstructure(ar_file1, ar_file2, outfile=outfile, outfile_id='a')
     compare_qasummary(ar_file1, ar_file2, outfile=outfile, outfile_id='a')
     compare_qastages(ar_file1, ar_file2, outfile=outfile, outfile_id='a')
     compare_qatopic(ar_file1, ar_file2, outfile=outfile, outfile_id='a')
