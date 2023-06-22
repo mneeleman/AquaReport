@@ -236,7 +236,7 @@ def compare_sensitivities(sens1, sens2, to_array=True):
         return diff
 
 
-def compare_aquareport_line(file1, file2, to_array=False, outfile='diff.csv', to_array=False, outfile_id='a'):
+def compare_aquareport_line(file1, file2, outfile='diff.csv', to_array=False, outfile_id='a'):
     arx1 = load_aquareport(file1)
     arx2 = load_aquareport(file2)
     row1 = ['ProposalCode']
