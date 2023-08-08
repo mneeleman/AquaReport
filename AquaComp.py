@@ -2,134 +2,159 @@ import xml.etree.ElementTree as ElT
 import csv
 
 
-def load_aquareport(file_name):
-    with open(file_name) as file:
-        return ElT.parse(file).getroot()
-
-
-def compare_qaperstagevsqapertopic(ar_file):
-    arx = load_aquareport(ar_file)
-    el1 = arx.findall('QaPerStage')[0]
-    el2 = arx.findall('QaPerTopic')[0]
-    for c1 in el1:
-        for d2 in el2.iter('Stage'):
-            if d2.attrib['Number'] == c1.attrib['Number']:
-                for d1, dd2 in zip(c1.iter(), d2.iter()):
-                    print('True') if d1.attrib == dd2.attrib else print(d1.attrib, dd2.attrib)
-
-
-def compare_projectstructure(ar_file1, ar_file2, outfile='project_structure.csv', outfile_id='w'):
-    arx1, arx2 = load_aquareport(ar_file1), load_aquareport(ar_file2)
-    columns, c1text, c2text = _compare_xml_children_text_(arx1, arx2, 'ProjectStructure')
-    with open(outfile, outfile_id, newline='') as csvfile:
+def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=None):
+    arx1 = load_aquareport(file1)
+    arx2 = load_aquareport(file2)
+    # the project information
+    pi1 = get_projectinfo(arx1)
+    pi2 = get_projectinfo(arx2)
+    columns, row1, row2 = compare_projectinfo(pi1, pi2)
+    with open(outfile, 'a', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(columns)
-        csvwriter.writerow(c1text)
-        csvwriter.writerow(c2text)
-
-
-def compare_qasummary(ar_file1, ar_file2, outfile='qa_summary.csv', outfile_id='w'):
-    arx1, arx2 = load_aquareport(ar_file1), load_aquareport(ar_file2)
-    columns, c1text, c2text = _compare_xml_children_text_(arx1, arx2, 'QaSummary')
-    with open(outfile, outfile_id, newline='') as csvfile:
+        csvwriter.writerow(row1)
+        csvwriter.writerow(row2)
+        csvwriter.writerow('')
+    # qa scores per stage
+    score1 = get_stagescore(arx1)
+    score2 = get_stagescore(arx2)
+    columns, row1 = compare_stagescore(score1, score2, stagecomplist=stagecomplist)
+    with open(outfile, 'a', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
+        csvwriter.writerow(['QA scores for the different PL stages'])
+        csvwriter.writerow([key + ':' + score1[key]['Name'] for key in score1])
+        csvwriter.writerow([score1[key]['Score'] for key in score1])
+        csvwriter.writerow([key + ':' + score2[key]['Name'] for key in score2])
+        csvwriter.writerow([score2[key]['Score'] for key in score2])
         csvwriter.writerow(columns)
-        csvwriter.writerow(c1text)
-        csvwriter.writerow(c2text)
-
-
-def compare_qastages(ar_file1, ar_file2, outfile='qa_stages.csv', outfile_id='w'):
-    arx1, arx2 = load_aquareport(ar_file1), load_aquareport(ar_file2)
-    el1, el2 = arx1.find('QaPerStage'), arx2.find('QaPerStage')
-    # take the longer list as the one that defines the stage columns
-    longer_list = list(el1) if len(list(el1)) > len(list(el2)) else list(el2)
-    columns1 = [x.attrib['Name'] for x in longer_list]
-    columns1.insert(0, 'StageName')
-    columns2 = [x.attrib['Number'] for x in longer_list]
-    columns2.insert(0, 'StageNumber')
-    c1score, cnt1, c2score, cnt2 = ['AR1'], 0, ['AR2'], 0
-    for col1 in columns1[1:]:
-        if list(el1)[cnt1].attrib['Name'] == col1:
-            c1score.append(list(el1)[cnt1].find('RepresentativeScore').attrib['Score'])
-            cnt1 += 1
-        else:
-            c1score.append('---')
-        if list(el2)[cnt2].attrib['Name'] == col1:
-            c2score.append(list(el2)[cnt2].find('RepresentativeScore').attrib['Score'])
-            cnt2 += 1
-        else:
-            c2score.append('---')
-    with open(outfile, outfile_id, newline='') as csvfile:
+        csvwriter.writerow(row1)
+        csvwriter.writerow('')
+    # flux measurements
+    flux1 = get_flux(arx1)
+    flux2 = get_flux(arx2)
+    columns, row1 = compare_fluxes(flux1, flux2)
+    with open(outfile, 'a', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(columns1)
-        csvwriter.writerow(columns2)
-        csvwriter.writerow(c1score)
-        csvwriter.writerow(c2score)
-
-
-def compare_qatopic(ar_file1, ar_file2, flux_measurements=True, sensitivities=True,
-                    outfile='qa_topic.csv', outfile_id='w'):
-    ar1_xml, ar2_xml = load_aquareport(ar_file1), load_aquareport(ar_file2)
-    el1, el2 = ar1_xml.find('QaPerTopic'), ar2_xml.find('QaPerTopic')
-    with open(outfile, outfile_id, newline='') as csvfile:
+        csvwriter.writerow(['Flux measurements for the calibrators per EB'])
+        csvwriter.writerow([key for key in flux1])
+        csvwriter.writerow([(flux1[key]['flux2'] if flux1[key]['flux2'] != 'None' else flux1[key]['flux1'])
+                            for key in flux1])
+        csvwriter.writerow([key for key in flux2])
+        csvwriter.writerow([(flux2[key]['flux2'] if flux2[key]['flux2'] != 'None' else flux2[key]['flux1'])
+                            for key in flux2])
+        csvwriter.writerow(columns)
+        csvwriter.writerow(row1)
+        csvwriter.writerow('')
+    # max renorm factors
+    mrf1 = get_maxrenormfactor(arx1)
+    mrf2 = get_maxrenormfactor(arx2)
+    columns, row1 = compare_maxrenormfactor(mrf1, mrf2)
+    with open(outfile, 'a', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
-        if flux_measurements:
-            fm_col, fm_c1, fm_c2 = ['FluxMeasurements'], ['AR1'], ['AR2']
-            fm_zip = zip(el1[0].find('FluxMeasurements').findall('FluxMeasurement'),
-                         el2[0].find('FluxMeasurements').findall('FluxMeasurement'))
-            for fm1, fm2 in fm_zip:
-                fm_col.append(fm1.attrib['Field'] + ' for spw ' + fm1.attrib['MsSpwId'])
-                fm_c1.append(fm1.attrib['FluxJy'] + ' Jy at ' + fm1.attrib['FrequencyGHz'] + ' GHz')
-                fm_c2.append(fm2.attrib['FluxJy'] + ' Jy at ' + fm2.attrib['FrequencyGHz'] + ' GHz')
-            fm_zip = zip(el1[2].find('FluxMeasurements').findall('FluxMeasurement'),
-                         el2[2].find('FluxMeasurements').findall('FluxMeasurement'))
-            for fm1, fm2 in fm_zip:
-                fm_col.append(fm1.attrib['Field'] + ' in spw ' + fm1.attrib['MsSpwId'])
-                fm_c1.append(fm1.attrib['FluxJy'] + ' Jy at ' + fm1.attrib['FrequencyGHz'] + ' GHz')
-                fm_c2.append(fm2.attrib['FluxJy'] + ' Jy at ' + fm2.attrib['FrequencyGHz'] + ' GHz')
-            csvwriter.writerow(fm_col)
-            csvwriter.writerow(fm_c1)
-            csvwriter.writerow(fm_c2)
-        if sensitivities:
-            se_col1, se_col2, se_c1, se_c2 = ['Sensitivities'], [''], ['AR1'], ['AR2']
-            se_zip = zip(el1[0].find('SensitivityEstimates').findall('Sensitivity'),
-                         el2[0].find('SensitivityEstimates').findall('Sensitivity'))
-            for se1, se2 in se_zip:
-                se_col1.append(se1.attrib['Field'] + ' for BWmode ' + se1.attrib['BwMode'])
-                [se_col1.append('') for _x in range(3)]
-                col_names = ['SensitivityJyPerBeam', 'BeamMajArcsec', 'BeamMinArcsec', 'BeamPosAngDeg']
-                [se_col2.append(col_name) for col_name in col_names]
-                [se_c1.append(se1.attrib[col_name]) for col_name in col_names]
-                [se_c2.append(se2.attrib[col_name]) for col_name in col_names]
-            csvwriter.writerow(se_col1)
-            csvwriter.writerow(se_col2)
-            csvwriter.writerow(se_c1)
-            csvwriter.writerow(se_c2)
+        csvwriter.writerow(['Max renorm factors per EB and SPW'])
+        csvwriter.writerow([key for key in mrf1])
+        csvwriter.writerow([mrf1[key] for key in mrf1])
+        csvwriter.writerow([key for key in mrf2])
+        csvwriter.writerow([mrf2[key] for key in mrf2])
+        csvwriter.writerow(columns)
+        csvwriter.writerow(row1)
+        csvwriter.writerow('')
+    # image sensitivities
+    sens1 = get_sensitivity(arx1)
+    sens2 = get_sensitivity(arx2)
+    s1col, s1row = [], []
+    for key1 in sens1:
+        for key2 in sens1[key1]:
+            for key3 in sens1[key1][key2]:
+                name = key1 + ':' + key2 + ':' + key3
+                s1col.append(name)
+                s1row.append(sens1[key1][key2][key3])
+    s2col, s2row = [], []
+    for key1 in sens2:
+        for key2 in sens2[key1]:
+            for key3 in sens2[key1][key2]:
+                name = key1 + ':' + key2 + ':' + key3
+                s2col.append(name)
+                s2row.append(sens2[key1][key2][key3])
+    columns, row1 = compare_sensitivities(sens1, sens2)
+    with open(outfile, 'a', newline='') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow(['Imaging characteristics'])
+        csvwriter.writerow(s1col)
+        csvwriter.writerow(s1row)
+        csvwriter.writerow(s2col)
+        csvwriter.writerow(s2row)
+        csvwriter.writerow(columns)
+        csvwriter.writerow(row1)
+        csvwriter.writerow('')
+        csvwriter.writerow('')
 
 
-def compare_aquareports(ar_file1, ar_file2, outfile='compare_aq.csv'):
-    compare_projectstructure(ar_file1, ar_file2, outfile=outfile, outfile_id='w')
-    compare_qasummary(ar_file1, ar_file2, outfile=outfile, outfile_id='a')
-    compare_qastages(ar_file1, ar_file2, outfile=outfile, outfile_id='a')
-    compare_qatopic(ar_file1, ar_file2, outfile=outfile, outfile_id='a')
+def compare_aquareport_line(file1, file2, to_array=False, outfile='diff.csv', outfile_id='a', stagecomplist=None):
+    arx1 = load_aquareport(file1)
+    arx2 = load_aquareport(file2)
+    row1 = ['ProposalCode']
+    row2 = [arx1.find('ProjectStructure').find('ProposalCode').text]
+    # get stage diff
+    score1 = get_stagescore(arx1)
+    score2 = get_stagescore(arx2)
+    trow1, trow2 = compare_stagescore(score1, score2, stagecomplist=stagecomplist)
+    row1.extend(trow1)
+    row2.extend(trow2)
+    # get flux diff
+    flux1 = get_flux(arx1)
+    flux2 = get_flux(arx2)
+    trow1, trow2 = compare_fluxes(flux1, flux2)
+    row1.extend(trow1)
+    row2.extend(trow2)
+    # get renorm diff
+    mrf1 = get_maxrenormfactor(arx1)
+    mrf2 = get_maxrenormfactor(arx2)
+    trow1, trow2 = compare_maxrenormfactor(mrf1, mrf2)
+    row1.extend(trow1)
+    row2.extend(trow2)
+    # get sens diff
+    sens1 = get_sensitivity(arx1)
+    sens2 = get_sensitivity(arx2)
+    trow1, trow2 = compare_sensitivities(sens1, sens2)
+    row1.extend(trow1)
+    row2.extend(trow2)
+    if to_array:
+        return row1, row2
+    else:
+        with open(outfile, outfile_id, newline='') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            csvwriter.writerow(row1)
+            csvwriter.writerow(row2)
 
 
-def _compare_xml_children_text_(xml1, xml2, element_name):
-    el1, el2 = xml1.find(element_name), xml2.find(element_name)
-    c1tag, c2tag = {x.tag for x in list(el1)}, {x.tag for x in list(el2)}
-    columns = list(c1tag | c2tag)
-    columns.insert(0, ' ')
-    c1text, c2text = ['AR1'], ['AR2']
-    for column in columns[1:]:
-        try:
-            c1text.append(el1.find(column).text)
-        except AttributeError:
-            c1text.append('---')
-        try:
-            c2text.append(el2.find(column).text)
-        except AttributeError:
-            c2text.append('---')
-    return columns, c1text, c2text
+def get_projectinfo(arx):
+    ps = arx.find('ProjectStructure')
+    projectinfo = {}
+    for x in list(ps):
+        projectinfo[x.tag] = x.text
+    qs = arx.find('QaSummary')
+    for x in list(qs):
+        projectinfo[x.tag] = x.text
+    return projectinfo
+
+
+def compare_projectinfo(pi1, pi2, to_array=True):
+    keys = list(pi1.keys() | pi2.keys())
+    diff = {'': {'ar1': 'AR1', 'ar2': 'AR2'}}
+    for key in keys:
+        diff[key] = {'ar1': '---', 'ar2': '---'}
+        if key in pi1:
+            diff[key]['ar1'] = pi1[key]
+        if key in pi2:
+            diff[key]['ar2'] = pi2[key]
+    if to_array:
+        columns = [x for x in diff]
+        row1 = [diff[x]['ar1'] for x in diff]
+        row2 = [diff[x]['ar2'] for x in diff]
+        return columns, row1, row2
+    else:
+        return diff
 
 
 def get_stagescore(arx):
@@ -140,28 +165,17 @@ def get_stagescore(arx):
     return stagescore
 
 
-def compare_stagescore(score1, score2, to_array=True):
-    rep_stages = score1 if len(score1) > len(score2) else score2
-    stg_cnt1, stg_cnt2, diff = 1, 1, {}
-    for stage_num in range(len(rep_stages)):
-        name = rep_stages[str(stage_num + 1)]['Name']
-        if score1[str(stg_cnt1)]['Name'] == name:
-            sc1 = score1[str(stg_cnt1)]['Score']
-            stg_cnt1 += 1
-        else:
-            sc1 = 'None'
-        if score2[str(stg_cnt2)]['Name'] == name:
-            sc2 = score2[str(stg_cnt2)]['Score']
-            stg_cnt2 += 1
-        else:
-            sc2 = 'None'
-        if sc1 != 'None' and sc2 != 'None':
-            diff[stage_num] = {'Number': stage_num + 1, 'Name': name, 'Diff': __calc_diff__(sc1, sc2)}
-        else:
-            diff[stage_num] = {'Number': stage_num + 1, 'Name': name, 'Diff': __calc_diff__(sc1, sc2)}
+def compare_stagescore(score1, score2, to_array=True, stagecomplist=None):
+    if stagecomplist is None:
+        stagecomplist = _get_stagecomplist_(score1, score2)
+    diff = {}
+    for stagecomp in stagecomplist:
+        diff[stagecomp[0]] = {'Number': '{},{}'.format(stagecomp[0], stagecomp[1]),
+                              'Name': score1[stagecomp[0]]['Name'],
+                              'Value': __calc_diff__(score1[stagecomp[0]]['Score'], score2[stagecomp[1]]['Score'])}
     if to_array:
-        row1 = [str(diff[x]['Number']) + ':' + diff[x]['Name'] for x in diff]
-        row2 = [diff[x]['Diff'] for x in diff]
+        row1 = ['QaStages:' + diff[x]['Number'] + ':' + diff[x]['Name'] for x in diff]
+        row2 = [diff[x]['Value'] for x in diff]
         return row1, row2
     else:
         return diff
@@ -170,7 +184,7 @@ def compare_stagescore(score1, score2, to_array=True):
 def get_flux(arx):
     flux = {}
     for fm in arx.iter('FluxMeasurement'):
-        name = fm.attrib['Field'] + ':' + fm.attrib['MsSpwId']
+        name = 'FluxMeasurment:' + fm.attrib['Asdm'] + ':' + fm.attrib['Field'] + ':' + fm.attrib['MsSpwId']
         if name not in flux:
             flux[name] = {'flux1': fm.attrib['FluxJy'], 'flux2': 'None'}
         else:
@@ -185,10 +199,7 @@ def compare_fluxes(flux1, flux2, to_array=True):
             diff[key1] = {}
             fl1 = flux1[key1]['flux2'] if flux1[key1]['flux2'] != 'None' else flux1[key1]['flux1']
             fl2 = flux2[key1]['flux2'] if flux2[key1]['flux2'] != 'None' else flux2[key1]['flux1']
-            if fl1 != 'None' and fl2 != 'None':
-                diff[key1] = __calc_diff__(fl1, fl2)
-            else:
-                diff[key1] = 'None'
+            diff[key1] = __calc_diff__(fl1, fl2)
     if to_array:
         row1 = [x for x in diff]
         row2 = [diff[x] for x in diff]
@@ -217,43 +228,70 @@ def compare_sensitivities(sens1, sens2, to_array=True):
         for k1 in diff:
             for k2 in diff[k1]:
                 for k3 in diff[k1][k2]:
-                    row1.append(k1+':'+k2+':'+k3)
+                    row1.append('Sensitivity:' + k1 + ':' + k2 + ':' + k3)
                     row2.append(diff[k1][k2][k3])
         return row1, row2
     else:
         return diff
 
 
-def compare_aquareport_line(file1, file2, to_array=False, outfile='diff.csv', outfile_id='a'):
-    arx1 = load_aquareport(file1)
-    arx2 = load_aquareport(file2)
-    row1 = ['ProposalCode']
-    row2 = [arx1.find('ProjectStructure').find('ProposalCode').text]
-    # get stage diff
-    score1 = get_stagescore(arx1)
-    score2 = get_stagescore(arx2)
-    trow1, trow2 = compare_stagescore(score1, score2)
-    row1.extend(trow1)
-    row2.extend(trow2)
-    # get flux diff
-    flux1 = get_flux(arx1)
-    flux2 = get_flux(arx2)
-    trow1, trow2 = compare_fluxes(flux1, flux2)
-    row1.extend(trow1)
-    row2.extend(trow2)
-    # get sens diff
-    sens1 = get_sensitivity(arx1)
-    sens2 = get_sensitivity(arx2)
-    trow1, trow2 = compare_sensitivities(sens1, sens2)
-    row1.extend(trow1)
-    row2.extend(trow2)
+def get_maxrenormfactor(arx):
+    mrf = {}
+    for stage in arx.find('QaPerStage'):
+        if stage.attrib['Name'] == 'hifa_renorm':
+            for subscore in stage.findall('SubScore'):
+                ebspw = ('MaxRenormFactor: ' + subscore.attrib['Reason'].split(' ')[1] + ': spw' +
+                         subscore.attrib['Reason'].split(' ')[5][:-1])
+                mrf[ebspw] = subscore.find('Metric').attrib['Value']
+    return mrf
+
+
+def compare_maxrenormfactor(mrf1, mrf2, to_array=True):
+    diff = {}
+    for key1 in mrf1.keys():
+        if key1 in mrf2.keys():
+            diff[key1] = __calc_diff__(mrf1[key1], mrf2[key1])
     if to_array:
+        row1 = [x for x in diff]
+        row2 = [diff[x] for x in diff]
         return row1, row2
     else:
-        with open(outfile, outfile_id, newline='') as csvfile:
-            csvwriter = csv.writer(csvfile)
-            csvwriter.writerow(row1)
-            csvwriter.writerow(row2)
+        return diff
+
+
+def load_aquareport(file_name):
+    with open(file_name) as file:
+        return ElT.parse(file).getroot()
+
+
+def _get_stagecomplist_(score1, score2):
+    stagelistshort = score1 if len(score1) < len(score2) else score2
+    cnt1, cnt2 = 1, 1
+    stagecomplist = []
+    for stage in stagelistshort:
+        tcnt1 = cnt1
+        while score1[str(cnt1)]['Name'] != stagelistshort[stage]['Name']:
+            cnt1 += 1
+            if str(cnt1) not in score1:
+                sc1 = 'None'
+                cnt1 = tcnt1
+                break
+        else:
+            sc1 = str(cnt1)
+            cnt1 += 1
+        tcnt2 = cnt2
+        while score2[str(cnt2)]['Name'] != stagelistshort[stage]['Name']:
+            cnt2 += 1
+            if str(cnt2) not in score2:
+                sc2 = 'None'
+                cnt2 = tcnt2
+                break
+        else:
+            sc2 = str(cnt2)
+            cnt2 += 1
+        if sc1 != 'None' and sc2 != 'None':
+            stagecomplist.append((sc1, sc2))
+    return stagecomplist
 
 
 def __populate_sensdict__(sensdict, attrib):
@@ -290,18 +328,6 @@ def __calc_diff__(str1, str2):
     return diff
 
 
-def __get_attrib_not_used__(subs):
-    reason_split = subs.attrib['Reason'].split()
-    try:
-        field = reason_split[reason_split.index('Field:') + 1]
-        intent = reason_split[reason_split.index('Intent:') + 1]
-    except ValueError:
-        field, intent = 'None', 'None'
-    rms = subs.find('Metric').get('Value')[0]
-    attrib = {'Field': field, 'Intent': intent, 'SensitivityJyPerBeam': rms}
-    return attrib
-
-
 def get_theoretical_rms(arx, stage_number):
     theoretical_rms = -1
     for stage in arx.find('QaPerStage'):
@@ -320,8 +346,3 @@ def get_representative_score(arx, stage_number):
             representative_score = stage.find('RepresentativeScore').attrib['Score']
             break
     return representative_score
-
-
-# single dish pipeline
-# scores
-# flagging in %, beam change in %, rms in %, max/min in %
