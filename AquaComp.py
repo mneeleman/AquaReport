@@ -305,10 +305,11 @@ def __populate_sensdict__(sensdict, attrib):
         data_type = 'REGCAL'
     else:
         data_type = attrib['DataType'].split('_')[0]
-    if attrib['Field'] + ':' + attrib['Intent'] + ':' + data_type not in sensdict:
-        sensdict[attrib['Field'] + ':' + attrib['Intent'] + ':' + data_type] = {}
-    if (attrib['MsSpwId'] + ':' + attrib['BwMode']) not in sensdict[attrib['Field'] + ':' + attrib['Intent']]:
-        sensdict[attrib['Field'] + ':' + attrib['Intent']][(attrib['MsSpwId'] + ':' + attrib['BwMode'])] = spwdict
+    sens_name = attrib['Field'] + ':' + attrib['Intent'] + ':' + data_type
+    if sens_name not in sensdict:
+        sensdict[sens_name] = {}
+    if (attrib['MsSpwId'] + ':' + attrib['BwMode']) not in sensdict[sens_name]:
+        sensdict[sens_name][(attrib['MsSpwId'] + ':' + attrib['BwMode'])] = spwdict
 
 
 def __diff_sensitivities__(spwdict1, spwdict2):
