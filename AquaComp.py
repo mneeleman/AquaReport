@@ -301,6 +301,8 @@ def __populate_sensdict__(sensdict, attrib):
                'Bpa': attrib.get('BeamPosAngDeg', 'None'),
                'Max': attrib.get('PbcorImageMaxJyPerBeam', 'None'),
                'Min': attrib.get('PbcorImageMinJyPerBeam', 'none')}
+    if attrib['EffectiveBanddithHz'] == 'N/A':
+       return
     if 'DataType' not in attrib:
         data_type = 'REGCAL'
     else:
