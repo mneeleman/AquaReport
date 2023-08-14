@@ -27,7 +27,6 @@ def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=No
         csvwriter.writerow([key + ':' + score2[key]['Name'] for key in score2])
         csvwriter.writerow([score2[key]['Score'] for key in score2])
         csvwriter.writerow(columns)
-<<<<<<< HEAD
         csvwriter.writerow(row1)
         csvwriter.writerow('')
     # flux measurements
@@ -35,40 +34,6 @@ def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=No
     flux2 = get_flux(arx2)
     columns, row1 = compare_fluxes(flux1, flux2)
     with open(outfile, 'a', newline='') as csvfile:
-=======
-        csvwriter.writerow(c1text)
-        csvwriter.writerow(c2text)
-
-
-def compare_qastages(ar_file1, ar_file2, outfile='qa_stages.csv', outfile_id='w'):
-    arx1, arx2 = load_aquareport(ar_file1), load_aquareport(ar_file2)
-    el1, el2 = arx1.find('QaPerStage'), arx2.find('QaPerStage')
-    # take the longer list as the one that defines the stage columns
-    longer_list = list(el1) if len(list(el1)) > len(list(el2)) else list(el2)
-    columns1 = [x.attrib['Name'] for x in longer_list]
-    columns1.insert(0, 'StageName')
-    columns2 = [x.attrib['Number'] for x in longer_list]
-    columns2.insert(0, 'StageNumber')
-    c1score, cnt1, c2score, cnt2 = ['AR1'], 0, ['AR2'], 0
-    for col1 in columns1[1:]:
-        try:
-            if list(el1)[cnt1].attrib['Name'] == col1:
-                c1score.append(list(el1)[cnt1].find('RepresentativeScore').attrib['Score'])
-                cnt1 += 1
-            else:
-                c1score.append('None')
-        except IndexError:
-            c1score.append('None')
-        try:
-            if list(el2)[cnt2].attrib['Name'] == col1:
-                c2score.append(list(el2)[cnt2].find('RepresentativeScore').attrib['Score'])
-                cnt2 += 1
-            else:
-                c2score.append('None')
-        except IndexError:
-            c2score.append('None')
-    with open(outfile, outfile_id, newline='') as csvfile:
->>>>>>> 938744e79a0eb27997a3f3f3aa3ec1880cd3cba0
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(['Flux measurements for the calibrators per EB'])
         csvwriter.writerow([key for key in flux1])
@@ -125,7 +90,6 @@ def compare_qastages(ar_file1, ar_file2, outfile='qa_stages.csv', outfile_id='w'
         csvwriter.writerow('')
 
 
-<<<<<<< HEAD
 def compare_aquareport_line(file1, file2, to_array=False, outfile='diff.csv', outfile_id='a', stagecomplist=None):
     arx1 = load_aquareport(file1)
     arx2 = load_aquareport(file2)
@@ -191,31 +155,6 @@ def compare_projectinfo(pi1, pi2, to_array=True):
         return columns, row1, row2
     else:
         return diff
-=======
-def compare_aquareports(ar_file1, ar_file2, outfile='compare_aq.csv'):
-    compare_projectstructure(ar_file1, ar_file2, outfile=outfile, outfile_id='a')
-    compare_qasummary(ar_file1, ar_file2, outfile=outfile, outfile_id='a')
-    compare_qastages(ar_file1, ar_file2, outfile=outfile, outfile_id='a')
-    compare_qatopic(ar_file1, ar_file2, outfile=outfile, outfile_id='a')
-
-
-def _compare_xml_children_text_(xml1, xml2, element_name):
-    el1, el2 = xml1.find(element_name), xml2.find(element_name)
-    c1tag, c2tag = {x.tag for x in list(el1)}, {x.tag for x in list(el2)}
-    columns = list(c1tag | c2tag)
-    columns.insert(0, ' ')
-    c1text, c2text = ['AR1'], ['AR2']
-    for column in columns[1:]:
-        try:
-            c1text.append(el1.find(column).text)
-        except AttributeError:
-            c1text.append('None')
-        try:
-            c2text.append(el2.find(column).text)
-        except AttributeError:
-            c2text.append('None')
-    return columns, c1text, c2text
->>>>>>> 938744e79a0eb27997a3f3f3aa3ec1880cd3cba0
 
 
 def get_stagescore(arx):
@@ -226,7 +165,6 @@ def get_stagescore(arx):
     return stagescore
 
 
-<<<<<<< HEAD
 def compare_stagescore(score1, score2, to_array=True, stagecomplist=None):
     if stagecomplist is None:
         stagecomplist = _get_stagecomplist_(score1, score2)
@@ -235,33 +173,6 @@ def compare_stagescore(score1, score2, to_array=True, stagecomplist=None):
         diff[stagecomp[0]] = {'Number': '{},{}'.format(stagecomp[0], stagecomp[1]),
                               'Name': score1[stagecomp[0]]['Name'],
                               'Value': __calc_diff__(score1[stagecomp[0]]['Score'], score2[stagecomp[1]]['Score'])}
-=======
-def compare_stagescore(score1, score2, to_array=True):
-    rep_stages = score1 if len(score1) > len(score2) else score2
-    stg_cnt1, stg_cnt2, diff = 1, 1, {}
-    for stage_num in range(len(rep_stages)):
-        name = rep_stages[str(stage_num + 1)]['Name']
-        try:
-            if score1[str(stg_cnt1)]['Name'] == name:
-                sc1 = score1[str(stg_cnt1)]['Score']
-                stg_cnt1 += 1
-            else:
-                sc1 = 'None'
-        except KeyError:
-            sc1 = 'None'
-        try:
-            if score2[str(stg_cnt2)]['Name'] == name:
-                sc2 = score2[str(stg_cnt2)]['Score']
-                stg_cnt2 += 1
-            else:
-                sc2 = 'None'
-        except KeyError:
-            sc2 = 'None'
-        if sc1 != 'None' and sc2 != 'None':
-            diff[stage_num] = {'Number': stage_num + 1, 'Name': name, 'Diff': __calc_diff__(sc1, sc2)}
-        else:
-            diff[stage_num] = {'Number': stage_num + 1, 'Name': name, 'Diff': __calc_diff__(sc1, sc2)}
->>>>>>> 938744e79a0eb27997a3f3f3aa3ec1880cd3cba0
     if to_array:
         row1 = ['QaStages:' + diff[x]['Number'] + ':' + diff[x]['Name'] for x in diff]
         row2 = [diff[x]['Value'] for x in diff]
@@ -273,11 +184,7 @@ def compare_stagescore(score1, score2, to_array=True):
 def get_flux(arx):
     flux = {}
     for fm in arx.iter('FluxMeasurement'):
-<<<<<<< HEAD
         name = 'FluxMeasurment:' + fm.attrib['Asdm'] + ':' + fm.attrib['Field'] + ':' + fm.attrib['MsSpwId']
-=======
-        name = fm.attrib['Field'] + ':' + fm.attrib['MsSpwId'] + ':Flux'
->>>>>>> 938744e79a0eb27997a3f3f3aa3ec1880cd3cba0
         if name not in flux:
             flux[name] = {'flux1': fm.attrib['FluxJy'], 'flux2': 'None'}
         else:
@@ -328,7 +235,6 @@ def compare_sensitivities(sens1, sens2, to_array=True):
         return diff
 
 
-<<<<<<< HEAD
 def get_maxrenormfactor(arx):
     mrf = {}
     for stage in arx.find('QaPerStage'):
@@ -345,31 +251,6 @@ def compare_maxrenormfactor(mrf1, mrf2, to_array=True):
     for key1 in mrf1.keys():
         if key1 in mrf2.keys():
             diff[key1] = __calc_diff__(mrf1[key1], mrf2[key1])
-=======
-def compare_aquareport_line(file1, file2, outfile='diff.csv', to_array=False, outfile_id='a'):
-    arx1 = load_aquareport(file1)
-    arx2 = load_aquareport(file2)
-    row1 = ['ProposalCode']
-    row2 = [arx1.find('ProjectStructure').find('ProposalCode').text]
-    # get stage diff
-    score1 = get_stagescore(arx1)
-    score2 = get_stagescore(arx2)
-    trow1, trow2 = compare_stagescore(score1, score2)
-    row1.extend(trow1)
-    row2.extend(trow2)
-    # get flux diff
-    flux1 = get_flux(arx1)
-    flux2 = get_flux(arx2)
-    trow1, trow2 = compare_fluxes(flux1, flux2)
-    row1.extend(trow1)
-    row2.extend(trow2)
-    # get sens diff
-    sens1 = get_sensitivity(arx1)
-    sens2 = get_sensitivity(arx2)
-    trow1, trow2 = compare_sensitivities(sens1, sens2)
-    row1.extend(trow1)
-    row2.extend(trow2)
->>>>>>> 938744e79a0eb27997a3f3f3aa3ec1880cd3cba0
     if to_array:
         row1 = [x for x in diff]
         row2 = [diff[x] for x in diff]
@@ -419,7 +300,6 @@ def __populate_sensdict__(sensdict, attrib):
                'Bmin': attrib.get('BeamMinArcsec', 'None'),
                'Bpa': attrib.get('BeamPosAngDeg', 'None'),
                'Max': attrib.get('PbcorImageMaxJyPerBeam', 'None'),
-<<<<<<< HEAD
                'Min': attrib.get('PbcorImageMinJyPerBeam', 'none')}
     if attrib['EffectiveBandwidthHz'] == 'N/A':
         return
@@ -432,13 +312,6 @@ def __populate_sensdict__(sensdict, attrib):
         sensdict[sens_name] = {}
     if (attrib['MsSpwId'] + ':' + attrib['BwMode']) not in sensdict[sens_name]:
         sensdict[sens_name][(attrib['MsSpwId'] + ':' + attrib['BwMode'])] = spwdict
-=======
-               'Min': attrib.get('PbcorImageMinJyPerBeam', 'None')}
-    if attrib['Field'] + ':' + attrib['Intent'] not in sensdict:
-        sensdict[attrib['Field'] + ':' + attrib['Intent']] = {}
-    if (attrib['MsSpwId'] + ':' + attrib['BwMode']) not in sensdict[attrib['Field'] + ':' + attrib['Intent']]:
-        sensdict[attrib['Field'] + ':' + attrib['Intent']][(attrib['MsSpwId'] + ':' + attrib['BwMode'])] = spwdict
->>>>>>> 938744e79a0eb27997a3f3f3aa3ec1880cd3cba0
 
 
 def __diff_sensitivities__(spwdict1, spwdict2):
@@ -480,7 +353,3 @@ def get_representative_score(arx, stage_number):
             representative_score = stage.find('RepresentativeScore').attrib['Score']
             break
     return representative_score
-<<<<<<< HEAD
-=======
-
->>>>>>> 938744e79a0eb27997a3f3f3aa3ec1880cd3cba0
