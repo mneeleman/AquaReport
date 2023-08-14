@@ -301,8 +301,12 @@ def __populate_sensdict__(sensdict, attrib):
                'Bpa': attrib.get('BeamPosAngDeg', 'None'),
                'Max': attrib.get('PbcorImageMaxJyPerBeam', 'None'),
                'Min': attrib.get('PbcorImageMinJyPerBeam', 'none')}
-    if attrib['Field'] + ':' + attrib['Intent'] not in sensdict:
-        sensdict[attrib['Field'] + ':' + attrib['Intent']] = {}
+    if 'DataType' not in attrib:
+        data_type = 'REGCAL'
+    else:
+        data_type = attrib['DataType'].split('_')[0]
+    if attrib['Field'] + ':' + attrib['Intent'] + ':' + data_type not in sensdict:
+        sensdict[attrib['Field'] + ':' + attrib['Intent'] + ':' + data_type] = {}
     if (attrib['MsSpwId'] + ':' + attrib['BwMode']) not in sensdict[attrib['Field'] + ':' + attrib['Intent']]:
         sensdict[attrib['Field'] + ':' + attrib['Intent']][(attrib['MsSpwId'] + ':' + attrib['BwMode'])] = spwdict
 
