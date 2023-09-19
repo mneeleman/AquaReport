@@ -90,7 +90,8 @@ def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=No
         csvwriter.writerow('')
 
 
-def compare_aquareport_line(file1, file2, to_array=False, outfile='diff.csv', outfile_id='a', stagecomplist=None):
+def compare_aquareport_line(file1, file2, to_array=False, outfile='diff.csv', outfile_id='a', stagecomplist=None,
+                            diff_only=False, limit=1E-3):
     arx1 = load_aquareport(file1)
     arx2 = load_aquareport(file2)
     row1 = ['ProposalCode']
@@ -99,24 +100,32 @@ def compare_aquareport_line(file1, file2, to_array=False, outfile='diff.csv', ou
     score1 = get_stagescore(arx1)
     score2 = get_stagescore(arx2)
     trow1, trow2 = compare_stagescore(score1, score2, stagecomplist=stagecomplist)
+    if diff_only:
+        trow1, trow2 = __compare_diff__(trow1, trow2, limit=limit)
     row1.extend(trow1)
     row2.extend(trow2)
     # get flux diff
     flux1 = get_flux(arx1)
     flux2 = get_flux(arx2)
     trow1, trow2 = compare_fluxes(flux1, flux2)
+    if diff_only:
+        trow1, trow2 = __compare_diff__(trow1, trow2, limit=1E-3)
     row1.extend(trow1)
     row2.extend(trow2)
     # get renorm diff
     mrf1 = get_maxrenormfactor(arx1)
     mrf2 = get_maxrenormfactor(arx2)
     trow1, trow2 = compare_maxrenormfactor(mrf1, mrf2)
+    if diff_only:
+        trow1, trow2 = __compare_diff__(trow1, trow2, limit=1E-3)
     row1.extend(trow1)
     row2.extend(trow2)
     # get sens diff
     sens1 = get_sensitivity(arx1)
     sens2 = get_sensitivity(arx2)
     trow1, trow2 = compare_sensitivities(sens1, sens2)
+    if diff_only:
+        trow1, trow2 = __compare_diff__(trow1, trow2, limit=1E-3)
     row1.extend(trow1)
     row2.extend(trow2)
     if to_array:
@@ -353,3 +362,15 @@ def get_representative_score(arx, stage_number):
             representative_score = stage.find('RepresentativeScore').attrib['Score']
             break
     return representative_score
+
+
+def __compare_diff__(lst1, lst2, limit=1E-3):
+    nlst1, nlst2 = [], []
+    for x, y in zip(lst1, lst2):
+        try:
+            if abs(float(y)) > limit:
+                nlst2.append(float(y))
+                nlst1.append(x)
+        except ValueError:
+            continue
+    return nlst1, nlst2
