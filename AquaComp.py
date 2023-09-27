@@ -2,139 +2,34 @@ import xml.etree.ElementTree as ElT
 import csv
 
 
-def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=None):
-    arx1 = load_aquareport(file1)
-    arx2 = load_aquareport(file2)
-    # the project information
-    pi1 = get_projectinfo(arx1)
-    pi2 = get_projectinfo(arx2)
-    columns, row1, row2 = compare_projectinfo(pi1, pi2)
-    with open(outfile, 'a', newline='') as csvfile:
-        csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(columns)
-        csvwriter.writerow(row1)
-        csvwriter.writerow(row2)
-        csvwriter.writerow('')
-    # qa scores per stage
-    score1 = get_stagescore(arx1)
-    score2 = get_stagescore(arx2)
-    columns, row1 = compare_stagescore(score1, score2, stagecomplist=stagecomplist)
-    with open(outfile, 'a', newline='') as csvfile:
-        csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(['QA scores for the different PL stages'])
-        csvwriter.writerow([key + ':' + score1[key]['Name'] for key in score1])
-        csvwriter.writerow([score1[key]['Score'] for key in score1])
-        csvwriter.writerow([key + ':' + score2[key]['Name'] for key in score2])
-        csvwriter.writerow([score2[key]['Score'] for key in score2])
-        csvwriter.writerow(columns)
-        csvwriter.writerow(row1)
-        csvwriter.writerow('')
-    # flux measurements
-    flux1 = get_flux(arx1)
-    flux2 = get_flux(arx2)
-    columns, row1 = compare_fluxes(flux1, flux2)
-    with open(outfile, 'a', newline='') as csvfile:
-        csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(['Flux measurements for the calibrators per EB'])
-        csvwriter.writerow([key for key in flux1])
-        csvwriter.writerow([(flux1[key]['flux2'] if flux1[key]['flux2'] != 'None' else flux1[key]['flux1'])
-                            for key in flux1])
-        csvwriter.writerow([key for key in flux2])
-        csvwriter.writerow([(flux2[key]['flux2'] if flux2[key]['flux2'] != 'None' else flux2[key]['flux1'])
-                            for key in flux2])
-        csvwriter.writerow(columns)
-        csvwriter.writerow(row1)
-        csvwriter.writerow('')
-    # max renorm factors
-    mrf1 = get_maxrenormfactor(arx1)
-    mrf2 = get_maxrenormfactor(arx2)
-    columns, row1 = compare_maxrenormfactor(mrf1, mrf2)
-    with open(outfile, 'a', newline='') as csvfile:
-        csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(['Max renorm factors per EB and SPW'])
-        csvwriter.writerow([key for key in mrf1])
-        csvwriter.writerow([mrf1[key] for key in mrf1])
-        csvwriter.writerow([key for key in mrf2])
-        csvwriter.writerow([mrf2[key] for key in mrf2])
-        csvwriter.writerow(columns)
-        csvwriter.writerow(row1)
-        csvwriter.writerow('')
-    # image sensitivities
-    sens1 = get_sensitivity(arx1)
-    sens2 = get_sensitivity(arx2)
-    s1col, s1row = [], []
-    for key1 in sens1:
-        for key2 in sens1[key1]:
-            for key3 in sens1[key1][key2]:
-                name = key1 + ':' + key2 + ':' + key3
-                s1col.append(name)
-                s1row.append(sens1[key1][key2][key3])
-    s2col, s2row = [], []
-    for key1 in sens2:
-        for key2 in sens2[key1]:
-            for key3 in sens2[key1][key2]:
-                name = key1 + ':' + key2 + ':' + key3
-                s2col.append(name)
-                s2row.append(sens2[key1][key2][key3])
-    columns, row1 = compare_sensitivities(sens1, sens2)
-    with open(outfile, 'a', newline='') as csvfile:
-        csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(['Imaging characteristics'])
-        csvwriter.writerow(s1col)
-        csvwriter.writerow(s1row)
-        csvwriter.writerow(s2col)
-        csvwriter.writerow(s2row)
-        csvwriter.writerow(columns)
-        csvwriter.writerow(row1)
-        csvwriter.writerow('')
-        csvwriter.writerow('')
-
-
-def compare_aquareport_line(file1, file2, to_array=False, outfile='diff.csv', outfile_id='a', stagecomplist=None,
-                            diff_only=False, limit=1E-3):
-    arx1 = load_aquareport(file1)
-    arx2 = load_aquareport(file2)
-    row1 = ['ProposalCode']
-    row2 = [arx1.find('ProjectStructure').find('ProposalCode').text]
-    # get stage diff
-    score1 = get_stagescore(arx1)
-    score2 = get_stagescore(arx2)
-    trow1, trow2 = compare_stagescore(score1, score2, stagecomplist=stagecomplist)
-    if diff_only:
-        trow1, trow2 = __compare_diff__(trow1, trow2, limit=limit)
-    row1.extend(trow1)
-    row2.extend(trow2)
-    # get flux diff
-    flux1 = get_flux(arx1)
-    flux2 = get_flux(arx2)
-    trow1, trow2 = compare_fluxes(flux1, flux2)
-    if diff_only:
-        trow1, trow2 = __compare_diff__(trow1, trow2, limit=1E-3)
-    row1.extend(trow1)
-    row2.extend(trow2)
-    # get renorm diff
-    mrf1 = get_maxrenormfactor(arx1)
-    mrf2 = get_maxrenormfactor(arx2)
-    trow1, trow2 = compare_maxrenormfactor(mrf1, mrf2)
-    if diff_only:
-        trow1, trow2 = __compare_diff__(trow1, trow2, limit=1E-3)
-    row1.extend(trow1)
-    row2.extend(trow2)
-    # get sens diff
-    sens1 = get_sensitivity(arx1)
-    sens2 = get_sensitivity(arx2)
-    trow1, trow2 = compare_sensitivities(sens1, sens2)
-    if diff_only:
-        trow1, trow2 = __compare_diff__(trow1, trow2, limit=1E-3)
-    row1.extend(trow1)
-    row2.extend(trow2)
-    if to_array:
-        return row1, row2
+def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=None, diff_only=False,
+                        limits=None, one_line=False, compact=False):
+    # define the limits that are to be used
+    if limits is None:
+        limits = [1E-3, 1E-2, 1E-2, 1E-2]
+    # load the dictionaries
+    arx1, arx2 = load_aquareport(file1), load_aquareport(file2)
+    pi1, pi2 = get_projectinfo(arx1), get_projectinfo(arx2)
+    score1, score2 = get_stagescore(arx1), get_stagescore(arx2)
+    flux1, flux2 = get_flux(arx1), get_flux(arx2)
+    mrf1, mrf2 = get_maxrenormfactor(arx1), get_maxrenormfactor(arx2)
+    sens1, sens2 = get_sensitivity(arx1), get_sensitivity(arx2)
+    # compare the dictionaries
+    pidiff = compare_projectinfo(pi1, pi2, diff_only=diff_only)
+    scorediff = compare_stagescore(score1, score2, stagecomplist=stagecomplist, diff_only=diff_only, limit=limits[0])
+    fluxdiff = compare_fluxes(flux1, flux2, diff_only=diff_only, limit=limits[1])
+    mrfdiff = compare_maxrenormfactor(mrf1, mrf2, diff_only=diff_only, limit=limits[2])
+    sensdiff = compare_sensitivities(sens1, sens2, diff_only=diff_only, limit=limits[3])
+    # write out to csv
+    if not compact:
+        conv2csv(pidiff, csvfile=outfile, comment=None, one_line=False)
+        conv2csv(scorediff, csvfile=outfile, comment='QA scores for the different PL stages', one_line=one_line)
+        conv2csv(fluxdiff, csvfile=outfile, comment='Flux measurements for the calibrators per EB', one_line=one_line)
+        conv2csv(mrfdiff, csvfile=outfile, comment='Max renorm factors per EB and SPW', one_line=one_line)
+        conv2csv(sensdiff, csvfile=outfile, comment='Imaging characteristics', one_line=one_line)
     else:
-        with open(outfile, outfile_id, newline='') as csvfile:
-            csvwriter = csv.writer(csvfile)
-            csvwriter.writerow(row1)
-            csvwriter.writerow(row2)
+        diff = {**pidiff, **scorediff, **fluxdiff, **mrfdiff, **sensdiff}
+        conv2csv(diff, csvfile=outfile, comment=None, one_line=one_line)
 
 
 def get_projectinfo(arx):
@@ -148,22 +43,22 @@ def get_projectinfo(arx):
     return projectinfo
 
 
-def compare_projectinfo(pi1, pi2, to_array=True):
+def compare_projectinfo(pi1, pi2, diff_only=False):
     keys = list(pi1.keys() | pi2.keys())
-    diff = {'': {'ar1': 'AR1', 'ar2': 'AR2'}}
-    for key in keys:
-        diff[key] = {'ar1': '---', 'ar2': '---'}
-        if key in pi1:
-            diff[key]['ar1'] = pi1[key]
-        if key in pi2:
-            diff[key]['ar2'] = pi2[key]
-    if to_array:
-        columns = [x for x in diff]
-        row1 = [diff[x]['ar1'] for x in diff]
-        row2 = [diff[x]['ar2'] for x in diff]
-        return columns, row1, row2
-    else:
-        return diff
+    diff = {}
+    for name in keys:
+        diff[name] = {'ar1': '---', 'ar2': '---', 'diff': ''}
+        if name in pi1:
+            diff[name]['ar1'] = pi1[name]
+        if name in pi2:
+            diff[name]['ar2'] = pi2[name]
+        if diff[name]['ar1'] != diff[name]['ar2']:
+            diff[name]['diff'] = diff[name]['ar1'] + ' -- ' + diff[name]['ar2']
+        else:
+            diff[name]['diff'] = diff[name]['ar1']
+        if diff_only and diff[name]['ar1'] == diff[name]['ar2']:
+            del (diff[name])
+    return diff
 
 
 def get_stagescore(arx):
@@ -174,20 +69,24 @@ def get_stagescore(arx):
     return stagescore
 
 
-def compare_stagescore(score1, score2, to_array=True, stagecomplist=None):
+def compare_stagescore(score1, score2, stagecomplist=None, diff_only=False, limit=1E-3):
     if stagecomplist is None:
         stagecomplist = _get_stagecomplist_(score1, score2)
     diff = {}
     for stagecomp in stagecomplist:
-        diff[stagecomp[0]] = {'Number': '{},{}'.format(stagecomp[0], stagecomp[1]),
-                              'Name': score1[stagecomp[0]]['Name'],
-                              'Value': __calc_diff__(score1[stagecomp[0]]['Score'], score2[stagecomp[1]]['Score'])}
-    if to_array:
-        row1 = ['QaStages:' + diff[x]['Number'] + ':' + diff[x]['Name'] for x in diff]
-        row2 = [diff[x]['Value'] for x in diff]
-        return row1, row2
-    else:
-        return diff
+        name = 'QaStages:{},{}:'.format(stagecomp[0], stagecomp[1]) + score1[stagecomp[0]]['Name']
+        diff[name] = {'ar1stage': stagecomp[0] + ':' + score1[stagecomp[0]]['Name'],
+                      'ar1': score1[stagecomp[0]]['Score'],
+                      'ar2stage': stagecomp[1] + ':' + score2[stagecomp[1]]['Name'],
+                      'ar2': score2[stagecomp[1]]['Score'],
+                      'number': '{},{}'.format(stagecomp[0], stagecomp[1]),
+                      'diff': __calc_diff__(score1[stagecomp[0]]['Score'], score2[stagecomp[1]]['Score'])}
+        if diff[name]['diff'] == 'None':
+            del (diff[name])
+        else:
+            if diff_only and abs(float(diff[name]['diff'])) < limit:
+                del (diff[name])
+    return diff
 
 
 def get_flux(arx):
@@ -201,20 +100,20 @@ def get_flux(arx):
     return flux
 
 
-def compare_fluxes(flux1, flux2, to_array=True):
+def compare_fluxes(flux1, flux2, diff_only=False, limit=1E-2):
     diff = {}
-    for key1 in flux1.keys():
-        if key1 in flux2.keys():
-            diff[key1] = {}
-            fl1 = flux1[key1]['flux2'] if flux1[key1]['flux2'] != 'None' else flux1[key1]['flux1']
-            fl2 = flux2[key1]['flux2'] if flux2[key1]['flux2'] != 'None' else flux2[key1]['flux1']
-            diff[key1] = __calc_diff__(fl1, fl2)
-    if to_array:
-        row1 = [x for x in diff]
-        row2 = [diff[x] for x in diff]
-        return row1, row2
-    else:
-        return diff
+    for name in flux1.keys():
+        if name in flux2.keys():
+            diff[name] = {}
+            fl1 = flux1[name]['flux2'] if flux1[name]['flux2'] != 'None' else flux1[name]['flux1']
+            fl2 = flux2[name]['flux2'] if flux2[name]['flux2'] != 'None' else flux2[name]['flux1']
+            diff[name] = {'ar1': fl1, 'ar2': fl2, 'diff': __calc_percdiff__(fl1, fl2)}
+            if diff[name]['diff'] == 'None':
+                del (diff[name])
+            else:
+                if diff_only and abs(float(diff[name]['diff'])) < limit:
+                    del (diff[name])
+    return diff
 
 
 def get_sensitivity(arx):
@@ -224,24 +123,20 @@ def get_sensitivity(arx):
     return sensdict
 
 
-def compare_sensitivities(sens1, sens2, to_array=True):
+def compare_sensitivities(sens1, sens2, diff_only=False, limit=1E-2):
     diff = {}
     for key1 in sens1.keys():
-        if key1 in sens2.keys():
-            diff[key1] = {}
-            for key2 in sens1[key1].keys():
-                if key2 in sens2[key1].keys():
-                    diff[key1][key2] = __diff_sensitivities__(sens1[key1][key2], sens2[key1][key2])
-    if to_array:
-        row1, row2 = [], []
-        for k1 in diff:
-            for k2 in diff[k1]:
-                for k3 in diff[k1][k2]:
-                    row1.append('Sensitivity:' + k1 + ':' + k2 + ':' + k3)
-                    row2.append(diff[k1][k2][k3])
-        return row1, row2
-    else:
-        return diff
+        for key2 in sens1[key1].keys():
+            for key3 in sens1[key1][key2]:
+                name = 'Sensitivity:' + key1 + ':' + key2 + ':' + key3
+                diff[name] = {'ar1': sens1[key1][key2][key3], 'ar2': sens2[key1][key2][key3],
+                              'diff': __calc_percdiff__(sens1[key1][key2][key3], sens2[key1][key2][key3])}
+                if diff[name]['diff'] == 'None':
+                    del (diff[name])
+                else:
+                    if diff_only and abs(float(diff[name]['diff'])) < limit:
+                        del (diff[name])
+    return diff
 
 
 def get_maxrenormfactor(arx):
@@ -255,22 +150,36 @@ def get_maxrenormfactor(arx):
     return mrf
 
 
-def compare_maxrenormfactor(mrf1, mrf2, to_array=True):
+def compare_maxrenormfactor(mrf1, mrf2, diff_only=True, limit=1E-2):
     diff = {}
-    for key1 in mrf1.keys():
-        if key1 in mrf2.keys():
-            diff[key1] = __calc_diff__(mrf1[key1], mrf2[key1])
-    if to_array:
-        row1 = [x for x in diff]
-        row2 = [diff[x] for x in diff]
-        return row1, row2
-    else:
-        return diff
+    for name in mrf1.keys():
+        if name in mrf2.keys():
+            diff[name] = {'ar1': mrf1[name], 'ar2': mrf1[name], 'diff': __calc_percdiff__(mrf1[name], mrf2[name])}
+        if diff[name]['diff'] == 'None':
+            del (diff[name])
+        else:
+            if diff_only and abs(float(diff[name]['diff'])) < limit:
+                del (diff[name])
+    return diff
 
 
 def load_aquareport(file_name):
     with open(file_name) as file:
         return ElT.parse(file).getroot()
+
+
+def conv2csv(diff, csvfile, comment=None, one_line=False):
+    with open(csvfile, 'a', newline='') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        if comment is not None:
+            csvwriter.writerow([comment])
+        csvwriter.writerow([name for name in diff])
+        if not one_line:
+            csvwriter.writerow([diff[name]['ar1'] for name in diff])
+            csvwriter.writerow([diff[name]['ar2'] for name in diff])
+        csvwriter.writerow([diff[name]['diff'] for name in diff])
+        if not one_line:
+            csvwriter.writerow([''])
 
 
 def _get_stagecomplist_(score1, score2):
@@ -323,22 +232,19 @@ def __populate_sensdict__(sensdict, attrib):
         sensdict[sens_name][(attrib['MsSpwId'] + ':' + attrib['BwMode'])] = spwdict
 
 
-def __diff_sensitivities__(spwdict1, spwdict2):
-    diffdict = {'Rms': __calc_diff__(spwdict1['Rms'], spwdict2['Rms']),
-                'Bmaj': __calc_diff__(spwdict1['Bmaj'], spwdict2['Bmaj']),
-                'Bmin': __calc_diff__(spwdict1['Bmin'], spwdict2['Bmin']),
-                'Bpa': __calc_diff__(spwdict1['Bpa'], spwdict2['Bpa']),
-                'Max': __calc_diff__(spwdict1['Max'], spwdict2['Max']),
-                'Min': __calc_diff__(spwdict1['Min'], spwdict2['Min'])
-                }
-    return diffdict
-
-
 def __calc_diff__(str1, str2):
     try:
-        diff = str((float(str1) - float(str2)) / float(str1))
+        diff = str((float(str2) - float(str1)))
+    except ValueError:
+        diff = 'None'
+    return diff
+
+
+def __calc_percdiff__(str1, str2):
+    try:
+        diff = str((float(str2) - float(str1)) / float(str1))
     except ZeroDivisionError:
-        diff = str(-1 * float(str2))
+        diff = str(float(str2))
     except ValueError:
         diff = 'None'
     return diff
