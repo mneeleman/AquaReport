@@ -108,7 +108,7 @@ def compare_fluxes(flux1, flux2, diff_only=False, limit=1E-2):
             fl1 = flux1[name]['flux2'] if flux1[name]['flux2'] != 'None' else flux1[name]['flux1']
             fl2 = flux2[name]['flux2'] if flux2[name]['flux2'] != 'None' else flux2[name]['flux1']
             diff[name] = {'ar1': fl1, 'ar2': fl2, 'diff': __calc_percdiff__(fl1, fl2)}
-            if diff[name]['diff'] == 'None':
+            if diff[name]['diff'] == 'None' or diff[name]['diff'] == 'N/A':
                 del (diff[name])
             else:
                 if diff_only and abs(float(diff[name]['diff'])) < limit:
@@ -155,7 +155,7 @@ def compare_maxrenormfactor(mrf1, mrf2, diff_only=True, limit=1E-2):
     for name in mrf1.keys():
         if name in mrf2.keys():
             diff[name] = {'ar1': mrf1[name], 'ar2': mrf1[name], 'diff': __calc_percdiff__(mrf1[name], mrf2[name])}
-        if diff[name]['diff'] == 'None':
+        if diff[name]['diff'] == 'None' or diff[name]['dif'] == 'N/A':
             del (diff[name])
         else:
             if diff_only and abs(float(diff[name]['diff'])) < limit:
