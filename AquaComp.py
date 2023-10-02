@@ -183,7 +183,7 @@ def conv2csv(diff, csvfile, comment=None, one_line=False):
             csvwriter.writerow([diff[name]['ar2'] for name in diff])
         csvwriter.writerow([diff[name]['diff'] for name in diff])
         if not one_line:
-            csvwriter.writerow([''])
+            csvwriter.writerow([])
 
 
 def _get_stagecomplist_(score1, score2):
