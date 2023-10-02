@@ -155,7 +155,7 @@ def compare_maxrenormfactor(mrf1, mrf2, diff_only=True, limit=1E-2):
     for name in mrf1.keys():
         if name in mrf2.keys():
             diff[name] = {'ar1': mrf1[name], 'ar2': mrf1[name], 'diff': __calc_percdiff__(mrf1[name], mrf2[name])}
-        if diff[name]['diff'] == 'None' or diff[name]['dif'] == 'N/A':
+        if diff[name]['diff'] == 'None' or diff[name]['diff'] == 'N/A':
             del (diff[name])
         else:
             if diff_only and abs(float(diff[name]['diff'])) < limit:
