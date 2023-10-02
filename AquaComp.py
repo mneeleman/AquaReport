@@ -81,11 +81,12 @@ def compare_stagescore(score1, score2, stagecomplist=None, diff_only=False, limi
                       'ar2': score2[stagecomp[1]]['Score'],
                       'number': '{},{}'.format(stagecomp[0], stagecomp[1]),
                       'diff': __calc_diff__(score1[stagecomp[0]]['Score'], score2[stagecomp[1]]['Score'])}
-        if diff[name]['diff'] == 'None':
-            del (diff[name])
-        else:
-            if diff_only and abs(float(diff[name]['diff'])) < limit:
+        if diff_only:
+            if diff[name]['diff'] == 'None':
                 del (diff[name])
+            else:
+                if abs(float(diff[name]['diff'])) < limit:
+                    del (diff[name])
     return diff
 
 
@@ -108,11 +109,12 @@ def compare_fluxes(flux1, flux2, diff_only=False, limit=1E-2):
             fl1 = flux1[name]['flux2'] if flux1[name]['flux2'] != 'None' else flux1[name]['flux1']
             fl2 = flux2[name]['flux2'] if flux2[name]['flux2'] != 'None' else flux2[name]['flux1']
             diff[name] = {'ar1': fl1, 'ar2': fl2, 'diff': __calc_percdiff__(fl1, fl2)}
-            if diff[name]['diff'] == 'None' or diff[name]['diff'] == 'N/A':
-                del (diff[name])
-            else:
-                if diff_only and abs(float(diff[name]['diff'])) < limit:
+            if diff_only:
+                if diff[name]['diff'] == 'None':
                     del (diff[name])
+                else:
+                    if abs(float(diff[name]['diff'])) < limit:
+                        del (diff[name])
     return diff
 
 
@@ -131,11 +133,12 @@ def compare_sensitivities(sens1, sens2, diff_only=False, limit=1E-2):
                 name = 'Sensitivity:' + key1 + ':' + key2 + ':' + key3
                 diff[name] = {'ar1': sens1[key1][key2][key3], 'ar2': sens2[key1][key2][key3],
                               'diff': __calc_percdiff__(sens1[key1][key2][key3], sens2[key1][key2][key3])}
-                if diff[name]['diff'] == 'None':
-                    del (diff[name])
-                else:
-                    if diff_only and abs(float(diff[name]['diff'])) < limit:
+                if diff_only:
+                    if diff[name]['diff'] == 'None':
                         del (diff[name])
+                    else:
+                        if abs(float(diff[name]['diff'])) < limit:
+                            del (diff[name])
     return diff
 
 
@@ -155,11 +158,12 @@ def compare_maxrenormfactor(mrf1, mrf2, diff_only=True, limit=1E-2):
     for name in mrf1.keys():
         if name in mrf2.keys():
             diff[name] = {'ar1': mrf1[name], 'ar2': mrf1[name], 'diff': __calc_percdiff__(mrf1[name], mrf2[name])}
-        if diff[name]['diff'] == 'None' or diff[name]['diff'] == 'N/A':
-            del (diff[name])
-        else:
-            if diff_only and abs(float(diff[name]['diff'])) < limit:
-                del (diff[name])
+            if diff_only:
+                if diff[name]['diff'] == 'None':
+                    del (diff[name])
+                else:
+                    if diff_only and abs(float(diff[name]['diff'])) < limit:
+                        del (diff[name])
     return diff
 
 
