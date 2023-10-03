@@ -3,7 +3,7 @@ import csv
 
 
 def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=None, diff_only=False,
-                        limits=None, one_line=False, compact=False):
+                        limits=None, one_line=False, compact=False, return_dict=False):
     # define the limits that are to be used
     if limits is None:
         limits = [1E-3, 1E-2, 1E-2, 1E-2]
@@ -21,6 +21,8 @@ def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=No
     mrfdiff = compare_maxrenormfactor(mrf1, mrf2, diff_only=diff_only, limit=limits[2])
     sensdiff = compare_sensitivities(sens1, sens2, diff_only=diff_only, limit=limits[3])
     # write out to csv
+    if return_dict:
+        return {**pidiff, **scorediff, **fluxdiff, **mrfdiff, **sensdiff}
     if not compact:
         conv2csv(pidiff, csvfile=outfile, comment=None, one_line=False)
         conv2csv(scorediff, csvfile=outfile, comment='QA scores for the different PL stages', one_line=one_line)
