@@ -210,8 +210,8 @@ def compare_cfmetrics(cf1, cf2, diff_only=False, limit=1E-2, no_ebw=False):
                 else:
                     if diff_only and abs(float(diff[name]['diff'])) < limit:
                         del (diff[name])
-            if 'effectivebw' in name and no_ebw:
-                del (diff[name])
+                    if 'effectivebw' in name and no_ebw:
+                        del (diff[name])
     return diff
 
 
