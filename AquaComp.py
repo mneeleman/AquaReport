@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ElT
 import csv
+import numpy as np
 
 
 def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=None, diff_only=False,
@@ -120,10 +121,10 @@ def compare_fluxes(flux1, flux2, diff_only=False, limit=1E-2):
     return diff
 
 
-def get_sensitivity(arx):
+def get_sensitivity(arx, get_bw=False):
     sensdict = {}
     for sens in arx.iter('Sensitivity'):
-        __populate_sensdict__(sensdict, sens.attrib)
+        __populate_sensdict__(sensdict, sens.attrib, get_bw=get_bw)
     return sensdict
 
 
@@ -160,6 +161,39 @@ def compare_maxrenormfactor(mrf1, mrf2, diff_only=True, limit=1E-2):
     for name in mrf1.keys():
         if name in mrf2.keys():
             diff[name] = {'ar1': mrf1[name], 'ar2': mrf1[name], 'diff': __calc_percdiff__(mrf1[name], mrf2[name])}
+            if diff_only:
+                if diff[name]['diff'] == 'None':
+                    del (diff[name])
+                else:
+                    if diff_only and abs(float(diff[name]['diff'])) < limit:
+                        del (diff[name])
+    return diff
+
+
+def get_cfmetrics(arx, limit=25):
+    sens = get_sensitivity(arx, get_bw=True)
+    cf = {}
+    for key1 in sens.keys():
+        for key2 in sens[key1].keys():
+            name = key1 + ':' + key2 + ':'
+            s = sens[key1][key2]
+            cf[name + 'effectivebw'] = str(float(s['Ebw'])/1E9)
+            cf[name + 'rmsadj'] = str(float(s['Rms']) * np.sqrt(float(s['Ebw'])/1E9))
+            cf[name + 'beamarea'] = str(np.sqrt(float(s['Bmin']) * float(s['Bmin'])) * 2 * np.pi / (2 * np.log(2)))
+            cf[name + 'max'] = s['Max'] if abs(float(s['Max']) / float(s['Rms'])) > limit else 'None'
+            cf[name + 'min'] = s['Min'] if abs(float(s['Min']) / float(s['Rms'])) > limit else 'None'
+            cf[name + 'snrmaxadj'] = (str(float(s['Max']) / float(cf[name + 'rmsadj']))
+                                      if abs(float(s['Max']) / float(s['Rms'])) > limit else 'None')
+            cf[name + 'snrminadj'] = (str(float(s['Min']) / float(cf[name + 'rmsadj']))
+                                      if abs(float(s['Min']) / float(s['Rms'])) > limit else 'None')
+    return cf
+
+
+def compare_cfmetrics(cf1, cf2, diff_only=False, limit=1E-2):
+    diff = {}
+    for name in cf1.keys():
+        if name in cf2.keys():
+            diff[name] = {'ar1': cf1[name], 'ar2': cf2[name], 'diff': __calc_percdiff__(cf1[name], cf2[name])}
             if diff_only:
                 if diff[name]['diff'] == 'None':
                     del (diff[name])
@@ -218,13 +252,16 @@ def _get_stagecomplist_(score1, score2):
     return stagecomplist
 
 
-def __populate_sensdict__(sensdict, attrib):
+def __populate_sensdict__(sensdict, attrib, get_bw=False):
     spwdict = {'Rms': attrib.get('SensitivityJyPerBeam', 'None'),
                'Bmaj': attrib.get('BeamMajArcsec', 'None'),
                'Bmin': attrib.get('BeamMinArcsec', 'None'),
                'Bpa': attrib.get('BeamPosAngDeg', 'None'),
                'Max': attrib.get('PbcorImageMaxJyPerBeam', 'None'),
-               'Min': attrib.get('PbcorImageMinJyPerBeam', 'none')}
+               'Min': attrib.get('PbcorImageMinJyPerBeam', 'None')}
+    if get_bw:
+        spwdict['Ebw'] = attrib.get('EffectiveBandwidthHz', 'None')
+
     if attrib['EffectiveBandwidthHz'] == 'N/A':
         return
     if 'DataType' not in attrib:

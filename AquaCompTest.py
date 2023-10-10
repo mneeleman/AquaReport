@@ -47,5 +47,18 @@ def test_comparesensitivities():
     return diff1, diff2
 
 
+def test_getcfmetrics():
+    arx1 = load_aquareport('./TestAR/AquaReport1.xml')
+    cf = get_cfmetrics(arx1)
+    return cf
+
+
+def test_comparecfmetrics():
+    arx1, arx2 = load_aquareport('./TestAR/AquaReport1.xml'), load_aquareport('./TestAR/AquaReport2.xml')
+    cf1, cf2 = get_cfmetrics(arx1), get_cfmetrics(arx2)
+    diff = compare_cfmetrics(cf1, cf2, diff_only=False, limit=1E-2)
+    return diff
+
+
 if __name__ == '__main__':
-    test_compareaquareports()
+    test_comparecfmetrics()
