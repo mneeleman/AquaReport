@@ -198,11 +198,13 @@ def get_cfmetrics(arx, limit=25):
     return cf
 
 
-def compare_cfmetrics(cf1, cf2, diff_only=False, limit=1E-2):
+def compare_cfmetrics(cf1, cf2, diff_only=False, limit=1E-2, no_ebw=False):
     diff = {}
     for name in cf1.keys():
         if name in cf2.keys():
             diff[name] = {'ar1': cf1[name], 'ar2': cf2[name], 'diff': __calc_percdiff__(cf1[name], cf2[name])}
+            if 'effectivebw' in name and no_ebw:
+                del (diff[name])
             if diff_only:
                 if diff[name]['diff'] == 'None':
                     del (diff[name])
