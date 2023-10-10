@@ -189,7 +189,7 @@ def get_cfmetrics(arx, limit=25):
     return cf
 
 
-def compare_cfmetrics(cf1, cf2, diff_only=False, limit=1E-2):
+def compare_cfmetrics(cf1, cf2, diff_only=False, limit=1E-2, csvfile=None):
     diff = {}
     for name in cf1.keys():
         if name in cf2.keys():
@@ -200,7 +200,10 @@ def compare_cfmetrics(cf1, cf2, diff_only=False, limit=1E-2):
                 else:
                     if diff_only and abs(float(diff[name]['diff'])) < limit:
                         del (diff[name])
-    return diff
+    if csvfile is not None:
+        conv2csv(diff, csvfile=csvfile)
+    else:
+        return diff
 
 
 def load_aquareport(file_name):
