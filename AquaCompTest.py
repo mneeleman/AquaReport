@@ -60,5 +60,14 @@ def test_comparecfmetrics():
     return diff
 
 
+def test_comparecf():
+    ar_file1 = './TestAR/AquaReport1.xml'
+    ar_file2 = './TestAR/AquaReport2.xml'
+    compare_cf(ar_file1, ar_file2, outfile='cf_comp.csv', diff_only=False)
+    compare_cf(ar_file1, ar_file2, outfile='cf_comp_diff.csv', diff_only=True)
+    compare_cf(ar_file1, ar_file2, outfile='cf_comp_one.csv', diff_only=False, one_line=True)
+    compare_cf(ar_file1, ar_file2, outfile='cf_comp_one_diff.csv', diff_only=True, one_line=True)
+
+
 if __name__ == '__main__':
-    test_comparecfmetrics()
+    test_comparecf()

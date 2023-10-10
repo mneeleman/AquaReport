@@ -35,6 +35,15 @@ def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=No
         conv2csv(diff, csvfile=outfile, comment=None, one_line=one_line)
 
 
+def compare_cf(file1, file2, outfile='compare_cf.csv', diff_only=False, limit=1E-2, one_line=False, return_dict=False):
+    arx1, arx2 = load_aquareport(file1), load_aquareport(file2)
+    cf1, cf2 = get_cfmetrics(arx1), get_cfmetrics(arx2)
+    diff = compare_cfmetrics(cf1, cf2, diff_only=diff_only, limit=limit)
+    if return_dict:
+        return diff
+    conv2csv(diff, csvfile=outfile, comment=None, one_line=one_line)
+
+
 def get_projectinfo(arx):
     ps = arx.find('ProjectStructure')
     projectinfo = {}
@@ -189,7 +198,7 @@ def get_cfmetrics(arx, limit=25):
     return cf
 
 
-def compare_cfmetrics(cf1, cf2, diff_only=False, limit=1E-2, csvfile=None):
+def compare_cfmetrics(cf1, cf2, diff_only=False, limit=1E-2):
     diff = {}
     for name in cf1.keys():
         if name in cf2.keys():
@@ -200,10 +209,7 @@ def compare_cfmetrics(cf1, cf2, diff_only=False, limit=1E-2, csvfile=None):
                 else:
                     if diff_only and abs(float(diff[name]['diff'])) < limit:
                         del (diff[name])
-    if csvfile is not None:
-        conv2csv(diff, csvfile=csvfile)
-    else:
-        return diff
+    return diff
 
 
 def load_aquareport(file_name):
