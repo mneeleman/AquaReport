@@ -35,10 +35,11 @@ def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=No
         conv2csv(diff, csvfile=outfile, comment=None, one_line=one_line)
 
 
-def compare_cf(file1, file2, outfile='compare_cf.csv', diff_only=False, limit=1E-2, one_line=False, return_dict=False):
+def compare_cf(file1, file2, outfile='compare_cf.csv', diff_only=False, limit=1E-2, one_line=False, return_dict=False,
+               no_ebw=False):
     arx1, arx2 = load_aquareport(file1), load_aquareport(file2)
     cf1, cf2 = get_cfmetrics(arx1), get_cfmetrics(arx2)
-    diff = compare_cfmetrics(cf1, cf2, diff_only=diff_only, limit=limit)
+    diff = compare_cfmetrics(cf1, cf2, diff_only=diff_only, limit=limit, no_ebw=no_ebw)
     if return_dict:
         return diff
     conv2csv(diff, csvfile=outfile, comment=None, one_line=one_line)
