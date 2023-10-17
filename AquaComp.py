@@ -180,7 +180,7 @@ def compare_maxrenormfactor(mrf1, mrf2, diff_only=True, limit=1E-2):
     return diff
 
 
-def get_cfmetrics(arx, limit=25):
+def get_cfmetrics(arx, limit=0):
     sens = get_sensitivity(arx, get_bw=True)
     cf = {}
     for key1 in sens.keys():
