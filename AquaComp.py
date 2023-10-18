@@ -106,7 +106,7 @@ def compare_stagescore(score1, score2, stagecomplist=None, diff_only=False, limi
 def get_flux(arx):
     flux = {}
     for fm in arx.iter('FluxMeasurement'):
-        name = 'FluxMeasurment:' + fm.attrib['Asdm'] + ':' + fm.attrib['Field'] + ':' + fm.attrib['MsSpwId']
+        name = 'FluxMeasurement:' + fm.attrib['Asdm'] + ':' + fm.attrib['Field'] + ':' + fm.attrib['MsSpwId']
         if name not in flux:
             flux[name] = {'flux1': fm.attrib['FluxJy'], 'flux2': 'None'}
         else:
