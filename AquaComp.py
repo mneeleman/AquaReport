@@ -5,6 +5,31 @@ import numpy as np
 
 def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=None, diff_only=False,
                         limits=None, one_line=False, compact=False, return_dict=False):
+    """
+    Function to compare two aquareports from different ALMA pipeline runs
+
+    :param file1: First aqua report to compare.
+    :param file2: Second aqua report to compare.
+    :param outfile: Output file for the comparison report. Note that this file will be appended if it already exists.
+    :param stagecomplist: If set to a list of tuples (e.g., [(1, 1), (2, 2), ...]), it defines the link between the
+        stages to compare between the two reports. If it is not set, the code will try to make a guess based on the
+        stage name. This is useful in case there are multiple calls of hifa_makeimages that are not easily
+        indentifiable by the code.
+    :param diff_only: Setting this will only report the values that are different by greater than the limits set using
+        the keyword lmits.
+    :param limits: If set to a list of floats, it will use these values as the limits to use.
+        Note that this keyword only is used when diff_only = True. The list should consists of 4 different floats, where
+        the first float is the limit for the stage score difference (i.e., if limits[0] = 1E-3 this means that any
+        stage scores that change by greater than 1E-3 will be reported. The second, third and fourth floats report
+        the percentage differences for the fluxes, max renormaliztion factor and senstivity metrics (i.e, if limits[1]
+        limits[2], or limits[3] = 1E-2 that means that any score that changes by greater than 1% will be reported.
+    :param one_line: If set, only the dfference for each metric is reported otherwise the values for the first and
+        second aquareport will also be reported.
+    :param compact: If set, all the metrics will be listed on a single line otherwise the metrics will be divided
+        over several lines with descriptive captions.
+    :param return_dict: is set, the data will be returned as a dictionary not written to an output file.
+    :return: (optional) - dict if the keyword return_dict = True
+    """
     # define the limits that are to be used
     if limits is None:
         limits = [1E-3, 1E-2, 1E-2, 1E-2]
