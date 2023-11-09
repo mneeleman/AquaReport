@@ -83,6 +83,10 @@ def get_projectinfo(arx):
 
 def compare_projectinfo(pi1, pi2, diff_only=False):
     keys = list(pi1.keys() | pi2.keys())
+    if 'ProposalCode' in keys:
+        keys.sort()
+        keys.remove('ProposalCode')
+        keys.insert(0, 'ProposalCode')
     diff = {}
     for name in keys:
         diff[name] = {'ar1': '---', 'ar2': '---', 'diff': ''}
@@ -94,7 +98,7 @@ def compare_projectinfo(pi1, pi2, diff_only=False):
             diff[name]['diff'] = diff[name]['ar1'] + ' -- ' + diff[name]['ar2']
         else:
             diff[name]['diff'] = diff[name]['ar1']
-        if diff_only and diff[name]['ar1'] == diff[name]['ar2']:
+        if diff_only and diff[name]['ar1'] == diff[name]['ar2'] and name != 'ProposalCode':
             del (diff[name])
     return diff
 
@@ -112,12 +116,12 @@ def compare_stagescore(score1, score2, stagecomplist=None, diff_only=False, limi
         stagecomplist = _get_stagecomplist_(score1, score2)
     diff = {}
     for stagecomp in stagecomplist:
-        name = 'QaStages:{},{}:'.format(stagecomp[0], stagecomp[1]) + score1[stagecomp[0]]['Name']
+        name = 'QaStages:{}_{}:'.format(stagecomp[0], stagecomp[1]) + score1[stagecomp[0]]['Name']
         diff[name] = {'ar1stage': stagecomp[0] + ':' + score1[stagecomp[0]]['Name'],
                       'ar1': score1[stagecomp[0]]['Score'],
                       'ar2stage': stagecomp[1] + ':' + score2[stagecomp[1]]['Name'],
                       'ar2': score2[stagecomp[1]]['Score'],
-                      'number': '{},{}'.format(stagecomp[0], stagecomp[1]),
+                      'number': '{}_{}'.format(stagecomp[0], stagecomp[1]),
                       'diff': __calc_diff__(score1[stagecomp[0]]['Score'], score2[stagecomp[1]]['Score'])}
         if diff_only:
             if diff[name]['diff'] == 'None':
