@@ -77,7 +77,8 @@ def compare_pldirs(dir1, dir2, outfile='compare_aq.csv'):
     for proj in projects:
         plist = glob.glob('{0}/{1}_*/S*/G*/M*/working/pipeline_aquareport.xml'.format(dir1, proj))
         if len(plist) == 0:
-            print('{0} is not a valid project with an aquareport in the first directory.'.format(proj))
+            full_dir = glob.glob('{0}/{1}'.format(dir1, proj))[0].split('/')[-1]
+            print('{0} is not a valid project with an aquareport in the first directory.'.format(full_dir))
             continue
         else:
             ar1 = plist[-1]
