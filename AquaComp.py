@@ -73,7 +73,7 @@ def compare_pldirs(dir1, dir2, outfile='compare_aq.csv'):
     :param outfile: output file name
     :return: N/A A file will be written
     """
-    projects = np.unique([x.split('/')[-1].split('_')[0] for x in sorted(glob.glob(dir1+'/*/'))])
+    projects = np.unique([x.split('/')[-2].split('_')[0] for x in sorted(glob.glob(dir1+'/*/'))])
     for proj in projects:
         plist = glob.glob('{0}/{1}_*/S*/G*/M*/working/pipeline_aquareport.xml'.format(dir1, proj))
         if len(plist) == 0:
