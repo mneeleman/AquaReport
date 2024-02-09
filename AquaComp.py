@@ -1,6 +1,8 @@
 import xml.etree.ElementTree as ElT
 import csv
 import numpy as np
+import glob
+import os
 
 
 def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=None, diff_only=False,
@@ -58,6 +60,36 @@ def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=No
     else:
         diff = {**pidiff, **scorediff, **fluxdiff, **mrfdiff, **sensdiff}
         conv2csv(diff, csvfile=outfile, comment=None, one_line=one_line)
+
+
+def compare_pldirs(dir1, dir2, outfile='compare_aq.csv'):
+    """
+    Function to compare all the aquareports within the given pipeline directories
+
+    The function assumes that the aquareport are located within the working directory of the directory with the
+    general structure of project/SOUS*/GOUS*/MOUS*/working. It will take the list af projects in the first directory
+    and check for existence in the second directory. This will be noted in the csv output file
+    :param dir1: first directory with pipeline runs
+    :param dir2: second directory with pipeline runs
+    :param outfile: output file name
+    :return: N/A A file will be written
+    """
+    projects = np.unique([x.split('_')[0].split('/')[-1] for x in sorted(glob.glob(dir1+'/*/'))])
+    for proj in projects:
+        plist = glob.glob('{0}/{1}_*/S*/G*/M*/working/pipeline_aquareport.xml'.format(dir1, proj))
+        if len(plist) == 0:
+            print('{0} is not a valid project with an aquareport in the first directory.'.format(proj))
+            continue
+        else:
+            ar1 = plist[-1]
+        plist = glob.glob('{0}/{1}_*/S*/G*/M*/working/pipeline_aquareport.xml'.format(dir2, proj))
+        if len(plist) == 0:
+            print('{0} is not a valid project in the second directory.'.format(proj))
+            continue
+        else:
+            ar2 = plist[-1]
+        compare_aquareports(ar1, ar2, outfile=outfile, diff_only=True, one_line=True, compact=True,
+                            limits=[1E-5, 1E-5, 1E-5, 1E-5])
 
 
 def compare_cf(file1, file2, outfile='compare_cf.csv', diff_only=False, limit=1E-2, one_line=False, return_dict=False,
