@@ -2,7 +2,6 @@ import xml.etree.ElementTree as ElT
 import csv
 import numpy as np
 import glob
-import os
 
 
 def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=None, diff_only=False,
