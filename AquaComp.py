@@ -61,16 +61,16 @@ def compare_aquareports(file1, file2, outfile='compare_aq.csv', stagecomplist=No
         conv2csv(diff, csvfile=outfile, comment=None, one_line=one_line)
 
 
-def compare_pldirs(dir1, dir2, outfile='compare_aq.csv'):
+def compare_pldirs(dir1, dir2, **kwargs):
     """
     Function to compare all the aquareports within the given pipeline directories
 
     The function assumes that the aquareport are located within the working directory of the directory with the
     general structure of project/SOUS*/GOUS*/MOUS*/working. It will take the list af projects in the first directory
-    and check for existence in the second directory. This will be noted in the csv output file
+    and check for existence in the second directory. This function can take in all of the keywords that c
+    compare_aquareports can take in.
     :param dir1: first directory with pipeline runs
     :param dir2: second directory with pipeline runs
-    :param outfile: output file name
     :return: N/A A file will be written
     """
     projects = np.unique([x.split('/')[-2].split('_')[0] for x in sorted(glob.glob(dir1+'/*.*/'))])
@@ -88,8 +88,7 @@ def compare_pldirs(dir1, dir2, outfile='compare_aq.csv'):
             continue
         else:
             ar2 = plist[-1]
-        compare_aquareports(ar1, ar2, outfile=outfile, diff_only=True, one_line=True, compact=True,
-                            limits=[1E-5, 1E-5, 1E-5, 1E-5])
+        compare_aquareports(ar1, ar2, **kwargs)
 
 
 def compare_cf(file1, file2, outfile='compare_cf.csv', diff_only=False, limit=1E-2, one_line=False, return_dict=False,
