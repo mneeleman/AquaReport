@@ -207,14 +207,14 @@ def compare_sensitivities(sens1, sens2, diff_only=False, limit=1E-2):
                 try:
                     diff[name] = {'ar1': sens1[key1][key2][key3], 'ar2': sens2[key1][key2][key3],
                                   'diff': __calc_percdiff__(sens1[key1][key2][key3], sens2[key1][key2][key3])}
+                    if diff_only:
+                        if diff[name]['diff'] == 'None':
+                            del (diff[name])
+                        else:
+                            if abs(float(diff[name]['diff'])) < limit:
+                                del (diff[name])
                 except KeyError:
                     print('Will not consider {} in comparison'.format(name))
-                if diff_only:
-                    if diff[name]['diff'] == 'None':
-                        del (diff[name])
-                    else:
-                        if abs(float(diff[name]['diff'])) < limit:
-                            del (diff[name])
     return diff
 
 
