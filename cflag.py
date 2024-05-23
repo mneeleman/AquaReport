@@ -8,16 +8,17 @@ import json
 import lxml.html
 
 
-def cflag_output(pl_dir, proj_dir, to_jsonfile=False, jsonfile=None):
+def cflag_output(pl_dir, proj_dir, get_imagestats=True, to_jsonfile=False, jsonfile=None):
     strct = {'pipeline_dir': pl_dir, 'project_dir': proj_dir}
     __scrape_aquareport__(strct, pl_dir, proj_dir)
     __scrape_weblog__(strct, pl_dir, proj_dir)
-    __get_targetlist__(strct, pl_dir, proj_dir)
-    working_dir = __get_imagelist__(strct, pl_dir, proj_dir, return_workingdir=True)
-    for image in strct['image_list']:
-        print('cflag_output: working on {0}, {1:3.1f}%'.format(image, strct['image_list'].index(image) /
-                                                               len(strct['image_list']) * 100))
-        __get_imagestats__(strct, image, working_dir)
+    if get_imagestats:
+        __get_targetlist__(strct, pl_dir, proj_dir)
+        working_dir = __get_imagelist__(strct, pl_dir, proj_dir, return_workingdir=True)
+        for image in strct['image_list']:
+            print('cflag_output: working on {0}, {1:3.1f}%'.format(image, strct['image_list'].index(image) /
+                                                                   len(strct['image_list']) * 100))
+            __get_imagestats__(strct, image, working_dir)
     if not to_jsonfile:
         return strct
     else:
@@ -209,7 +210,7 @@ def __get_statspereb__(strct, weblog_dir):
     # update in case there is a discrepancy between mous and eb target list
     strct['target_list'] = list(np.unique(np.array([strct[eb]['target_list'] for eb in ebnames]).flatten()))
     strct['n_targets'] = len(np.unique(np.array([strct[eb]['target_list'] for eb in ebnames]).flatten()))
-    strct['ephem_science'] = np.any([strct[eb]['ephemeris_targets'] for eb in ebnames])
+    strct['ephem_science'] = bool(np.any([strct[eb]['ephemeris_targets'] for eb in ebnames]))
 
 
 def __get_statspermous__(strct, weblog_dir):
