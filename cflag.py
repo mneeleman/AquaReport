@@ -200,11 +200,11 @@ def __get_statspereb__(strct, weblog_dir):
                                               ((not np.all(table[0]['Proper Motion'] == [0, 0]) or
                                                 table[0]['Ephemeris Table (sampling interval)']))]
         target_ids = [row['ID'] for row in table if 'TARGET' in row['Intent']]
-        for target_id, target in zip(target_ids, strct[ebname]['target_list']):
-            strct[ebname][target] = {'n_pointings': table[np.where(target_id == table['ID'])]['# Pointings'].value[0]}
+        for tid, target in zip(target_ids, strct[ebname]['target_list']):
+            strct[ebname][target] = {'n_pointings': int(table[np.where(tid == table['ID'])]['# Pointings'].value[0])}
         ant_table = __html2table__(eb + '/t2-2-3.html', tableindex=2)
         strct[ebname]['n_ant'] = len(np.unique(ant_table['Antenna 1']))
-        strct[ebname]['L80'] = [row['Baseline Length'] for row in ant_table if row['Percentile (%)'] >= 75.0][0]
+        strct[ebname]['L80'] = str([row['Baseline Length'] for row in ant_table if row['Percentile (%)'] >= 75.0][0])
         scan_table = __html2table__(eb + '/t2-2-6.html')
         strct[ebname]['n_scan'] = len(scan_table)
     # update in case there is a discrepancy between mous and eb target list
