@@ -123,7 +123,7 @@ def __get_rms__(im, im_pb, im_mask):
         im_rmsidx = list(np.random.randint(im_maskcomp.shape))
         while im_maskcomp[im_rmsidx[0], im_rmsidx[1]]:
             im_rmsidx = list(np.random.randint(im_maskcomp.shape))
-        im_rmsidx = [im_rmsidx]
+        im_rmsidx = [[int(x) for x in im_rmsidx]]
     else:
         if im.shape[-3] == 1:
             print('__get_rms__: only 1 channel --expect to break stuff')
@@ -137,7 +137,7 @@ def __get_rms__(im, im_pb, im_mask):
             t_rmsidx = np.random.randint(im_maskcomp.shape)
             while im_maskcomp[t_rmsidx[-2], t_rmsidx[-1]]:
                 t_rmsidx = np.random.randint(im_maskcomp.shape)
-            temp_rmsidx.append([channel, t_rmsidx[-2], t_rmsidx[-1]])
+            temp_rmsidx.append([channel, int(t_rmsidx[-2]), int(t_rmsidx[-1])])
         maxidx, minidx = temp_rmsidx[np.nanargmax(im_rms)], temp_rmsidx[np.nanargmin(im_rms)]
         gradidx = temp_rmsidx[np.nanargmax(np.gradient(im_rms[:-1])) + 1]
         im_rmsidx = [minidx, maxidx, gradidx]
@@ -171,7 +171,6 @@ def __get_cutouts__(im, im_idx, sz=12):
     else:
         cutouts, channels = [], []
         for i_idx in im_idx:
-
             cutouts.append(im[i_idx[-3], i_idx[-2]-sz:i_idx[-2]+sz+1, i_idx[-1]-sz:i_idx[-1]+sz+1].tolist())
             channels.append(i_idx[-3].item())
     return cutouts, channels
@@ -227,7 +226,7 @@ def __get_statspermous__(strct, weblog_dir):
     ephem_targets = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent'] and
                      ((not np.all(source_table[0]['Proper Motion'] == [0, 0]) or
                        source_table[0]['Ephemeris Table (sampling interval)']))]
-    strct['ephem_science'] = np.any(ephem_targets)
+    strct['ephem_science'] = bool(np.any(ephem_targets))
 
 
 def __load_images__(image, working_dir):
