@@ -147,7 +147,7 @@ def __get_rms__(im, im_pb, im_mask):
 def __get_max__(im):
     if im.ndim == 2:
         im_max = [np.nanmax(im).astype(np.float64)]
-        im_maxidx = [list(np.unravel_index(np.nanargmax(im), im.shape))]
+        im_maxidx = [[int(x) for x in list(np.unravel_index(np.nanargmax(im), im.shape))]]
     else:
         if im.shape[-3] == 1:
             print('__get_max__: only 1 channel --expect to break stuff')
