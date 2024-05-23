@@ -216,7 +216,6 @@ def __get_statspermous__(strct, weblog_dir):
     strct['eb_list'] = [eb.split('/')[-1] for eb in ebs]
     source_table = __html2table__(ebs[0] + '/t2-2-1.html')
     sources = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent']]
-    sourceids = [row['ID'] for row in source_table if 'TARGET' in row['Intent']]
     strct['target_list'] = sources
     strct['n_targets'] = len(sources)
     ephem_targets = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent'] and
