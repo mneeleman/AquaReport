@@ -79,7 +79,6 @@ def __scrape_flagfiles__(strct, pl_dir, proj_dir):
     flag_files = glob.glob('{0}/{1}/S*/G*/M*/working/*.flagtemplate.txt'.format(pl_dir, proj_dir))
     if not flag_files:
         print('__scrape_flagfiles__: no flagging files in working directory')
-    flag_comments = ['']
     for ff in flag_files:
         eb = ff.split('/')[-1].split('.')[0]
         if eb not in strct:
