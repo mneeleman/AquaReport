@@ -67,11 +67,10 @@ def __scrape_weblog__(strct, pl_dir, proj_dir):
         print('__scrape_weblog__: TODO look for tarred pipeline version in products directory')
     if not wllist:
         print('__scrape_weblog__: No weblog found in {0}/{1}'.format(pl_dir, proj_dir))
+        return
     else:
         __get_statspermous__(strct, wllist[-1])
         __get_statspereb__(strct, wllist[-1])
-
-        pass
 
 
 def __get_targetlist__(strct, pl_dir, proj_dir):
@@ -179,6 +178,9 @@ def __get_cutouts__(im, im_idx, sz=12):
 
 def __get_statspereb__(strct, weblog_dir):
     ebs = glob.glob(weblog_dir + 'html/sessionsession*/*[0-f][0-f].ms')
+    if len(ebs) == 0:
+        print('__get_statspereb: no valid EBs present in {}'.format(weblog_dir))
+        return
     ebnames = [eb.split('/')[-1] for eb in ebs]
     for ebname, eb in zip(ebnames, ebs):
         table = __html2table__(eb + '/t2-2-1.html')
@@ -213,6 +215,9 @@ def __get_statspereb__(strct, weblog_dir):
 def __get_statspermous__(strct, weblog_dir):
     ebs = glob.glob(weblog_dir + 'html/sessionsession*/*[0-f][0-f].ms')
     strct['n_ebs'] = len(ebs)
+    if len(ebs) == 0:
+        print('__get_statspermous: no valid EBs present in {}'.format(weblog_dir))
+        return
     strct['eb_list'] = [eb.split('/')[-1] for eb in ebs]
     source_table = __html2table__(ebs[0] + '/t2-2-1.html')
     sources = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent']]
