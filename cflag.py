@@ -12,6 +12,7 @@ def cflag_output(pl_dir, proj_dir, get_imagestats=True, to_jsonfile=False, jsonf
     strct = {'pipeline_dir': pl_dir, 'project_dir': proj_dir}
     __scrape_aquareport__(strct, pl_dir, proj_dir)
     __scrape_weblog__(strct, pl_dir, proj_dir)
+    __scrape_flagfiles__(strct, pl_dir, proj_dir)
     if get_imagestats:
         __get_targetlist__(strct, pl_dir, proj_dir)
         working_dir = __get_imagelist__(strct, pl_dir, proj_dir, return_workingdir=True)
@@ -72,6 +73,19 @@ def __scrape_weblog__(strct, pl_dir, proj_dir):
     else:
         __get_statspermous__(strct, wllist[-1])
         __get_statspereb__(strct, wllist[-1])
+
+
+def __scrape_flagfiles__(strct, pl_dir, proj_dir):
+    flag_files = glob.glob('{0}/{1}/S*/G*/M*/working/*.flagtemplate.txt'.format(pl_dir, proj_dir))
+    if not flag_files:
+        print('__scrape_flagfiles__: no flagging files in working directory')
+    flag_comments = ['']
+    for ff in flag_files:
+        eb = ff.split('/')[-1].split('.')[0]
+        if eb not in strct:
+            print('__scrape_flagfiles__: creating a new EB structure. {} is not present'.format(eb))
+            strct[eb] = {}
+        strct[eb]['manual_flags'] = '|'.join([line.strip() for line in open(ff) if not line.strip().startswith('#')])
 
 
 def __get_targetlist__(strct, pl_dir, proj_dir):
