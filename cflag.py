@@ -62,7 +62,7 @@ def __scrape_aquareport__(strct, pl_dir, proj_dir):
 
 def __scrape_weblog__(strct, pl_dir, proj_dir):
     # look for weblog in the working directory (already untarred version)
-    wllist = glob.glob('{0}/{1}/S*/G*/M*/working/pipeline_*/'.format(pl_dir, proj_dir))
+    wllist = glob.glob('{0}/{1}/S*/G*/M*/working/pipeline*/'.format(pl_dir, proj_dir))
     if not wllist:
         print('__scrape_weblog__: TODO look for tarred pipeline version in products directory')
     if not wllist:
@@ -206,6 +206,19 @@ def __get_statspereb__(strct, weblog_dir):
         strct[ebname]['L80'] = [row['Baseline Length'] for row in ant_table if row['Percentile (%)'] >= 75.0][0]
         scan_table = __html2table__(eb + '/t2-2-6.html')
         strct[ebname]['n_scan'] = len(scan_table)
+        if flagging_comment:
+            fcomments = ['', '']
+            for idx, tdir in enumerate([self.directory1, self.directory2]):
+                flag_files = glob.glob(self.rootdir + '/' + tdir + '/S*/G*/M*/working/*.flagtemplate.txt')
+                if flag_files:
+                    for ff in flag_files:
+                        fcomments[idx] += (''.join([line.strip() for line in open(ff)
+                                                    if not line.strip().startswith('#')]) + '<br>')
+            pstr += 'The following manual flagging was applied to the data sets:<br>\n'
+            pstr += 'data set 1:<br>\n {}\n'.format(fcomments[0])
+            pstr += 'data set 2:<br>\n {}\n'.format(fcomments[1])
+        return pstr
+
     # update in case there is a discrepancy between mous and eb target list
     strct['target_list'] = list(np.unique(np.array([strct[eb]['target_list'] for eb in ebnames]).flatten()))
     strct['n_targets'] = len(np.unique(np.array([strct[eb]['target_list'] for eb in ebnames]).flatten()))
