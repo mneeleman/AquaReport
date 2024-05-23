@@ -155,7 +155,7 @@ def __get_max__(im):
         for channel in np.arange(im.shape[-3]):
             im_max.append(np.nanmax(im[channel, :]).astype(np.float64))
             t_maxidx = np.unravel_index(np.nanargmax(im[channel, :]), im[channel, :].shape)
-            temp_maxidx.append([channel, t_maxidx[-2], t_maxidx[-1]])
+            temp_maxidx.append([int(channel), int(t_maxidx[-2]), int(t_maxidx[-1])])
         maxidx, minidx = temp_maxidx[np.nanargmax(im_max)], temp_maxidx[np.nanargmin(im_max)]
         gradidx = temp_maxidx[np.nanargmax(np.gradient(im_max[:-1])) + 1]
         im_maxidx = [minidx, maxidx, gradidx]
