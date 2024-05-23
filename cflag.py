@@ -137,7 +137,7 @@ def __get_rms__(im, im_pb, im_mask):
             t_rmsidx = np.random.randint(im_maskcomp.shape)
             while im_maskcomp[t_rmsidx[-2], t_rmsidx[-1]]:
                 t_rmsidx = np.random.randint(im_maskcomp.shape)
-            temp_rmsidx.append([channel, int(t_rmsidx[-2]), int(t_rmsidx[-1])])
+            temp_rmsidx.append([int(channel), int(t_rmsidx[-2]), int(t_rmsidx[-1])])
         maxidx, minidx = temp_rmsidx[np.nanargmax(im_rms)], temp_rmsidx[np.nanargmin(im_rms)]
         gradidx = temp_rmsidx[np.nanargmax(np.gradient(im_rms[:-1])) + 1]
         im_rmsidx = [minidx, maxidx, gradidx]
