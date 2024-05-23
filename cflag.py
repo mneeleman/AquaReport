@@ -1,9 +1,11 @@
 import xml.etree.ElementTree as ElT
 import glob
+import lxml
 import numpy as np
-from astropy.io import fits
+from astropy.io import fits, ascii
 import os
 import json
+import lxml.html
 
 
 def cflag_output(pl_dir, proj_dir, to_jsonfile=False, jsonfile=None):
@@ -63,8 +65,13 @@ def __scrape_weblog__(strct, pl_dir, proj_dir):
     wllist = glob.glob('{0}/{1}/S*/G*/M*/working/pipeline_*/'.format(pl_dir, proj_dir))
     if not wllist:
         print('__scrape_weblog__: TODO look for tarred pipeline version in products directory')
-    # take latest pipeline weblog
-    pass
+    if not wllist:
+        print('__scrape_weblog__: No weblog found in {0}/{1}'.format(pl_dir, proj_dir))
+    else:
+        __get_statspermous__(strct, wllist[-1])
+        __get_statspereb__(strct, wllist[-1])
+
+        pass
 
 
 def __get_targetlist__(strct, pl_dir, proj_dir):
@@ -170,6 +177,54 @@ def __get_cutouts__(im, im_idx, sz=12):
     return cutouts, channels
 
 
+def __get_statspereb__(strct, weblog_dir):
+    ebs = glob.glob(weblog_dir + 'html/sessionsession*/*[0-f][0-f].ms')
+    ebnames = [eb.split('/')[-1] for eb in ebs]
+    for ebname, eb in zip(ebnames, ebs):
+        table = __html2table__(eb + '/t2-2-1.html')
+        strct[ebname] = {}
+        strct[ebname]['solarsystem_calibrators'] = [row['SourceName'] for row in table if (not
+                                                    np.all(table[0]['Proper Motion'] == [0, 0]) or
+                                                    table[0]['Ephemeris Table (sampling interval)']) and
+                                                    'TARGET' not in row['Intent']]
+        strct[ebname]['flux_calibrators'] = [row['Source Name'] for row in table if 'AMPLITUDE' in row['Intent']]
+        strct[ebname]['bandpass_calibrators'] = [row['Source Name'] for row in table if 'BANDPASS' in row['Intent']]
+        strct[ebname]['phase_calibrators'] = [row['Source Name'] for row in table if 'PHASE' in row['Intent']]
+        strct[ebname]['polarization_calibrators'] = [row['Source Name'] for row in table if 'POL' in row['Intent']]
+        strct[ebname]['check_sources'] = [row['Source Name'] for row in table if 'CHECK' in row['Intent']]
+        strct[ebname]['target_list'] = [row['Source Name'] for row in table if 'TARGET' in row['Intent']]
+        strct[ebname]['ephemeris_targets'] = [row['Source Name'] for row in table if 'TARGET' in row['Intent'] and
+                                              ((not np.all(table[0]['Proper Motion'] == [0, 0]) or
+                                                table[0]['Ephemeris Table (sampling interval)']))]
+        target_ids = [row['ID'] for row in table if 'TARGET' in row['Intent']]
+        for target_id, target in zip(target_ids, strct[ebname]['target_list']):
+            strct[ebname][target] = {'n_pointings': table[np.where(target_id == table['ID'])]['# Pointings'].value[0]}
+        ant_table = __html2table__(eb + '/t2-2-3.html', tableindex=2)
+        strct[ebname]['n_ant'] = len(np.unique(ant_table['Antenna 1']))
+        strct[ebname]['L80'] = [row['Baseline Length'] for row in ant_table if row['Percentile (%)'] >= 75.0][0]
+        scan_table = __html2table__(eb + '/t2-2-6.html')
+        strct[ebname]['n_scan'] = len(scan_table)
+    # update in case there is a discrepancy between mous and eb target list
+    strct['target_list'] = list(np.unique(np.array([strct[eb]['target_list'] for eb in ebnames]).flatten()))
+    strct['n_targets'] = len(np.unique(np.array([strct[eb]['target_list'] for eb in ebnames]).flatten()))
+    strct['ephem_science'] = np.any([strct[eb]['ephemeris_targets'] for eb in ebnames])
+
+
+def __get_statspermous__(strct, weblog_dir):
+    ebs = glob.glob(weblog_dir + 'html/sessionsession*/*[0-f][0-f].ms')
+    strct['n_ebs'] = len(ebs)
+    strct['eb_list'] = [eb.split('/')[-1] for eb in ebs]
+    source_table = __html2table__(ebs[0] + '/t2-2-1.html')
+    sources = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent']]
+    sourceids = [row['ID'] for row in source_table if 'TARGET' in row['Intent']]
+    strct['target_list'] = sources
+    strct['n_targets'] = len(sources)
+    ephem_targets = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent'] and
+                     ((not np.all(source_table[0]['Proper Motion'] == [0, 0]) or
+                       source_table[0]['Ephemeris Table (sampling interval)']))]
+    strct['ephem_science'] = np.any(ephem_targets)
+
+
 def __load_images__(image, working_dir):
     hdu = fits.open(working_dir + image)
     header = hdu[0].header
@@ -193,3 +248,14 @@ def __getpblimit__(im_pb):
     else:
         pb_limit = 0.33
     return pb_limit
+
+
+def __html2table__(htmlfile, tableindex=0):
+    html_obj = lxml.html.parse(htmlfile)
+    htmltable = [x for x in html_obj.iter('table')][tableindex]
+    string = lxml.html.tostring(htmltable).decode('UTF-8')
+    with open('./temptable.txt', 'w') as tempfile:
+        tempfile.write(string)
+    table = ascii.read('./temptable.txt', format='html', guess=False)
+    os.remove('./temptable.txt')
+    return table
