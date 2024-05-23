@@ -172,7 +172,7 @@ def __get_cutouts__(im, im_idx, sz=12):
         cutouts, channels = [], []
         for i_idx in im_idx:
             cutouts.append(im[i_idx[-3], i_idx[-2]-sz:i_idx[-2]+sz+1, i_idx[-1]-sz:i_idx[-1]+sz+1].tolist())
-            channels.append(i_idx[-3].item())
+            channels.append(i_idx[-3])
     return cutouts, channels
 
 
