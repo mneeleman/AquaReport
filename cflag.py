@@ -199,8 +199,8 @@ def __get_statspereb__(strct, weblog_dir):
         table = __html2table__(eb + '/t2-2-1.html')
         strct[ebname] = {}
         strct[ebname]['solarsystem_calibrators'] = [row['SourceName'] for row in table if 'TARGET' not in row['Intent']
-                                                    and ((row['Proper Motion'] != [0, 0]).any() or
-                                                         bool(row['Ephemeris Table (sampling interval)']))]
+                                                    and (np.any(row['Proper Motion'] != [0, 0]) or
+                                                         row['Ephemeris Table (sampling interval)'].size > 0)]
         strct[ebname]['flux_calibrators'] = [row['Source Name'] for row in table if 'AMPLITUDE' in row['Intent']]
         strct[ebname]['bandpass_calibrators'] = [row['Source Name'] for row in table if 'BANDPASS' in row['Intent']]
         strct[ebname]['phase_calibrators'] = [row['Source Name'] for row in table if 'PHASE' in row['Intent']]
@@ -208,8 +208,8 @@ def __get_statspereb__(strct, weblog_dir):
         strct[ebname]['check_sources'] = [row['Source Name'] for row in table if 'CHECK' in row['Intent']]
         strct[ebname]['target_list'] = [row['Source Name'] for row in table if 'TARGET' in row['Intent']]
         strct[ebname]['ephemeris_targets'] = [row['Source Name'] for row in table if 'TARGET' in row['Intent']
-                                              and ((row['Proper Motion'] != [0, 0]).any() or
-                                                   bool(row['Ephemeris Table (sampling interval)']))]
+                                              and (np.any(row['Proper Motion'] != [0, 0]) or
+                                                   row['Ephemeris Table (sampling interval)'].size > 0)]
         target_ids = [row['ID'] for row in table if 'TARGET' in row['Intent']]
         for tid, target in zip(target_ids, strct[ebname]['target_list']):
             strct[ebname][target] = {'n_pointings': int(table[np.where(tid == table['ID'])]['# Pointings'].value[0])}
@@ -236,8 +236,8 @@ def __get_statspermous__(strct, weblog_dir):
     strct['target_list'] = sources
     strct['n_targets'] = len(sources)
     ephem_targets = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent']
-                     and ((row['Proper Motion'] != [0, 0]).any() or
-                          bool(row['Ephemeris Table (sampling interval)']))]
+                     and (np.any(row['Proper Motion'] != [0, 0]) or
+                          row['Ephemeris Table (sampling interval)'].size > 0)]
     strct['ephem_science'] = bool(np.any(ephem_targets))
 
 
