@@ -84,7 +84,7 @@ def __scrape_flagfiles__(strct, pl_dir, proj_dir):
         if eb not in strct:
             print('__scrape_flagfiles__: creating a new EB structure. {} is not present'.format(eb))
             strct[eb] = {}
-        strct[eb]['manual_flags'] = '|'.join([line.strip() for line in open(ff) if not line.strip().startswith('#')])
+        strct[eb]['manual_flags'] = [line.strip() for line in open(ff) if not line.strip().startswith('#')]
 
 
 def __get_targetlist__(strct, pl_dir, proj_dir):
