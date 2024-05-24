@@ -8,7 +8,7 @@ import json
 import lxml.html
 
 
-def cflag_output(pl_dir, proj_dir, get_imagestats=True, to_jsonfile=False, jsonfile=None):
+def cflag_output(pl_dir, proj_dir, to_jsonfile=False, jsonfile=None, get_imagestats=True):
     strct = {'pipeline_dir': pl_dir, 'project_dir': proj_dir}
     __scrape_aquareport__(strct, pl_dir, proj_dir)
     __scrape_weblog__(strct, pl_dir, proj_dir)
@@ -29,12 +29,12 @@ def cflag_output(pl_dir, proj_dir, get_imagestats=True, to_jsonfile=False, jsonf
             json.dump(strct, fp)
 
 
-def cflag_rundirectory(pl_dir, outdir='./', projects=None):
+def cflag_rundirectory(pl_dir, outdir='./', projects=None, **kwargs):
     if projects is None:
         projects = list(np.unique([x.split('/')[-2] for x in sorted(glob.glob(pl_dir + '/*.*/'))]))
     for proj_dir in projects:
         print('{0}: {1} of {2}'.format(proj_dir, projects.index(proj_dir) + 1, len(projects)))
-        cflag_output(pl_dir, proj_dir, to_jsonfile=True, jsonfile=outdir + proj_dir + '.json')
+        cflag_output(pl_dir, proj_dir, to_jsonfile=True, jsonfile=outdir + proj_dir + '.json', **kwargs)
 
 
 def __scrape_aquareport__(strct, pl_dir, proj_dir):
