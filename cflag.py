@@ -198,7 +198,7 @@ def __get_statspereb__(strct, weblog_dir):
     for ebname, eb in zip(ebnames, ebs):
         table = __html2table__(eb + '/t2-2-1.html')
         strct[ebname] = {}
-        strct[ebname]['solarsystem_calibrators'] = [row['SourceName'] for row in table if 'TARGET' not in row['Intent']
+        strct[ebname]['solarsystem_calibrators'] = [row['Source Name'] for row in table if 'TARGET' not in row['Intent']
                                                     and (np.any(row['Proper Motion'] != [0, 0]) or
                                                          row['Ephemeris Table (sampling interval)'].size > 0)]
         strct[ebname]['flux_calibrators'] = [row['Source Name'] for row in table if 'AMPLITUDE' in row['Intent']]
