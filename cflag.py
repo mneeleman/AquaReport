@@ -238,7 +238,7 @@ def __get_statspermous__(strct, weblog_dir):
     ephem_targets = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent']
                      and (np.any(row['Proper Motion'] != [0, 0]) or
                           row['Ephemeris Table (sampling interval)'].size > 0)]
-    strct['ephem_science'] = bool(np.any(ephem_targets))
+    strct['ephem_science'] = np.array(ephem_targets).size > 0
 
 
 def __load_images__(image, working_dir):
