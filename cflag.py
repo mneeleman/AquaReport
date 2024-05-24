@@ -189,6 +189,22 @@ def __get_cutouts__(im, im_idx, sz=12):
     return cutouts, channels
 
 
+def __get_statsperspw__(strct, weblog_dir):
+    ebs = glob.glob(weblog_dir + 'html/sessionsession*/*[0-f][0-f].ms')
+    if len(ebs) == 0:
+        print('__get_statsperspw: no valid EBs present in {}'.format(weblog_dir))
+    spw_table = __html2table__(ebs[0] + '/t2-2-2.html')
+    for row in spw_table:
+        strct[row['Real ID']] = {}
+        strct[row['Real ID']]['spw_freq'] = str(row['Frequency (TOPO)'][1])
+        strct[row['Real ID']]['spw_width'] = str(row['Bandwidth (TOPO)'])
+        strct[row['Real ID']]['spw_nchan'] = int(row['Channels (TOPO)'][0])
+        strct[row['Real ID']]['chan_width_freq'] = str(row['Channels (TOPO)'][2])
+        strct[row['Real ID']]['chan_width_vel'] = str(row['Channels (TOPO)'][3])
+        strct[row['Real ID']]['nbin_online'] = int(row['Channels (TOPO)'][1])
+    pass
+
+
 def __get_statspereb__(strct, weblog_dir):
     ebs = glob.glob(weblog_dir + 'html/sessionsession*/*[0-f][0-f].ms')
     if len(ebs) == 0:
@@ -217,8 +233,8 @@ def __get_statspereb__(strct, weblog_dir):
         scan_table = __html2table__(eb + '/t2-2-6.html')
         strct[ebname]['n_scan'] = len(scan_table)
     # update in case there is a discrepancy between mous and eb target list
-    strct['target_list'] = list(np.unique(np.array([strct[eb]['target_list'] for eb in ebnames]).flatten()))
     strct['n_targets'] = len(np.unique(np.array([strct[eb]['target_list'] for eb in ebnames]).flatten()))
+    strct['target_list'] = list(np.unique(np.array([strct[eb]['target_list'] for eb in ebnames]).flatten()))
     strct['ephem_science'] = np.array([strct[eb]['ephemeris_targets'] for eb in ebnames]).flatten().size > 0
 
 
@@ -231,10 +247,15 @@ def __get_statspermous__(strct, weblog_dir):
     strct['eb_list'] = [eb.split('/')[-1] for eb in ebs]
     source_table = __html2table__(ebs[0] + '/t2-2-1.html')
     sources = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent']]
-    strct['target_list'] = sources
     strct['n_targets'] = len(sources)
+    strct['target_list'] = sources
     ephem_targets = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent'] and __is_solsysobj__(row)]
     strct['ephem_science'] = np.array(ephem_targets).size > 0
+    spw_table = __html2table__(ebs[0] + '/t2-2-2.html')
+    strct['n_spw'] = len(spw_table)
+    strct['spw_list'] = [row['Real ID'] for row in spw_table]
+    strct['virtualspw_list'] = [row['Virtual ID'] for row in spw_table]
+    strct['bands'] = list(np.unique([row['Band'] for row in spw_table]))
 
 
 def __load_images__(image, working_dir):
