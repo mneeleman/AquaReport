@@ -80,7 +80,7 @@ def __scrape_flagfiles__(strct, pl_dir, proj_dir):
     if not flag_files:
         print('__scrape_flagfiles__: no flagging files in working directory')
     for ff in flag_files:
-        eb = ff.split('/')[-1].split('.')[0]
+        eb = ff.split('/')[-1].split('.')[0] + '.ms'
         if eb not in strct:
             print('__scrape_flagfiles__: creating a new EB structure. {} is not present'.format(eb))
             strct[eb] = {}
