@@ -198,19 +198,18 @@ def __get_statspereb__(strct, weblog_dir):
     for ebname, eb in zip(ebnames, ebs):
         table = __html2table__(eb + '/t2-2-1.html')
         strct[ebname] = {}
-        strct[ebname]['solarsystem_calibrators'] = [row['SourceName'] for row in table if (not
-                                                    np.all(table[0]['Proper Motion'] == [0, 0]) or
-                                                    table[0]['Ephemeris Table (sampling interval)']) and
-                                                    'TARGET' not in row['Intent']]
+        strct[ebname]['solarsystem_calibrators'] = [row['SourceName'] for row in table if 'TARGET' not in row['Intent']
+                                                    and ((row['Proper Motion'] != [0, 0]).any() or
+                                                         bool(row['Ephemeris Table (sampling interval)']))]
         strct[ebname]['flux_calibrators'] = [row['Source Name'] for row in table if 'AMPLITUDE' in row['Intent']]
         strct[ebname]['bandpass_calibrators'] = [row['Source Name'] for row in table if 'BANDPASS' in row['Intent']]
         strct[ebname]['phase_calibrators'] = [row['Source Name'] for row in table if 'PHASE' in row['Intent']]
         strct[ebname]['polarization_calibrators'] = [row['Source Name'] for row in table if 'POL' in row['Intent']]
         strct[ebname]['check_sources'] = [row['Source Name'] for row in table if 'CHECK' in row['Intent']]
         strct[ebname]['target_list'] = [row['Source Name'] for row in table if 'TARGET' in row['Intent']]
-        strct[ebname]['ephemeris_targets'] = [row['Source Name'] for row in table if 'TARGET' in row['Intent'] and
-                                              ((not np.all(table[0]['Proper Motion'] == [0, 0]) or
-                                                table[0]['Ephemeris Table (sampling interval)']))]
+        strct[ebname]['ephemeris_targets'] = [row['Source Name'] for row in table if 'TARGET' in row['Intent']
+                                              and ((row['Proper Motion'] != [0, 0]).any() or
+                                                   bool(row['Ephemeris Table (sampling interval)']))]
         target_ids = [row['ID'] for row in table if 'TARGET' in row['Intent']]
         for tid, target in zip(target_ids, strct[ebname]['target_list']):
             strct[ebname][target] = {'n_pointings': int(table[np.where(tid == table['ID'])]['# Pointings'].value[0])}
@@ -222,7 +221,7 @@ def __get_statspereb__(strct, weblog_dir):
     # update in case there is a discrepancy between mous and eb target list
     strct['target_list'] = list(np.unique(np.array([strct[eb]['target_list'] for eb in ebnames]).flatten()))
     strct['n_targets'] = len(np.unique(np.array([strct[eb]['target_list'] for eb in ebnames]).flatten()))
-    strct['ephem_science'] = bool(np.any([strct[eb]['ephemeris_targets'] for eb in ebnames]))
+    strct['ephem_science'] = np.array([strct[eb]['ephemeris_targets'] for eb in ebnames]).flatten().size > 0
 
 
 def __get_statspermous__(strct, weblog_dir):
@@ -236,9 +235,9 @@ def __get_statspermous__(strct, weblog_dir):
     sources = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent']]
     strct['target_list'] = sources
     strct['n_targets'] = len(sources)
-    ephem_targets = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent'] and
-                     ((not np.all(source_table[0]['Proper Motion'] == [0, 0]) or
-                       source_table[0]['Ephemeris Table (sampling interval)']))]
+    ephem_targets = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent']
+                     and ((row['Proper Motion'] != [0, 0]).any() or
+                          bool(row['Ephemeris Table (sampling interval)']))]
     strct['ephem_science'] = bool(np.any(ephem_targets))
 
 
