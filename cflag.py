@@ -199,8 +199,7 @@ def __get_statspereb__(strct, weblog_dir):
         table = __html2table__(eb + '/t2-2-1.html')
         strct[ebname] = {}
         strct[ebname]['solarsystem_calibrators'] = [row['Source Name'] for row in table if 'TARGET' not in row['Intent']
-                                                    and (list(row['Proper Motion']) != [0, 0] or
-                                                         row['Ephemeris Table (sampling interval)'].size > 0)]
+                                                    and __is_solsysobj__(row)]
         strct[ebname]['flux_calibrators'] = [row['Source Name'] for row in table if 'AMPLITUDE' in row['Intent']]
         strct[ebname]['bandpass_calibrators'] = [row['Source Name'] for row in table if 'BANDPASS' in row['Intent']]
         strct[ebname]['phase_calibrators'] = [row['Source Name'] for row in table if 'PHASE' in row['Intent']]
@@ -208,8 +207,7 @@ def __get_statspereb__(strct, weblog_dir):
         strct[ebname]['check_sources'] = [row['Source Name'] for row in table if 'CHECK' in row['Intent']]
         strct[ebname]['target_list'] = [row['Source Name'] for row in table if 'TARGET' in row['Intent']]
         strct[ebname]['ephemeris_targets'] = [row['Source Name'] for row in table if 'TARGET' in row['Intent']
-                                              and (list(row['Proper Motion']) != [0, 0] or
-                                                   row['Ephemeris Table (sampling interval)'].size > 0)]
+                                              and __is_solsysobj__(row)]
         target_ids = [row['ID'] for row in table if 'TARGET' in row['Intent']]
         for tid, target in zip(target_ids, strct[ebname]['target_list']):
             strct[ebname][target] = {'n_pointings': int(table[np.where(tid == table['ID'])]['# Pointings'].value[0])}
@@ -235,9 +233,7 @@ def __get_statspermous__(strct, weblog_dir):
     sources = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent']]
     strct['target_list'] = sources
     strct['n_targets'] = len(sources)
-    ephem_targets = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent']
-                     and (list(row['Proper Motion']) != [0, 0] or
-                          row['Ephemeris Table (sampling interval)'].size > 0)]
+    ephem_targets = [row['Source Name'] for row in source_table if 'TARGET' in row['Intent'] and __is_solsysobj__(row)]
     strct['ephem_science'] = np.array(ephem_targets).size > 0
 
 
@@ -275,3 +271,19 @@ def __html2table__(htmlfile, tableindex=0):
     table = ascii.read('./temptable.txt', format='html', guess=False)
     os.remove('./temptable.txt')
     return table
+
+
+def __is_solsysobj__(row):
+    has_propermotion = False
+    if type(row['Proper Motion'][0]) == str:
+        has_propermotion = True
+        #  if float(row['Proper Motion'][0][:-5]) > 1E-11 or float(row['Proper Motion'][1][:-5]) > 1E-11:
+        #      has_propermotion = True
+    if type(row['Ephemeris Table (sampling interval)']) == np.ma.core.MaskedConstant:
+        has_ephemeris = False
+    else:
+        has_ephemeris = True
+    if has_propermotion or has_ephemeris:
+        return True
+    else:
+        return False
