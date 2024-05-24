@@ -274,11 +274,11 @@ def __html2table__(htmlfile, tableindex=0):
 
 
 def __is_solsysobj__(row):
-    has_propermotion = False
-    if type(row['Proper Motion'][0]) == str:
+    print(row)
+    if type(row['Proper Motion'][0]) == str or type(row['Proper Motion'][1]) == str:
         has_propermotion = True
-        #  if float(row['Proper Motion'][0][:-5]) > 1E-11 or float(row['Proper Motion'][1][:-5]) > 1E-11:
-        #      has_propermotion = True
+    else:
+        has_propermotion = False
     if type(row['Ephemeris Table (sampling interval)']) == np.ma.core.MaskedConstant:
         has_ephemeris = False
     else:
