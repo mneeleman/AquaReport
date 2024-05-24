@@ -274,8 +274,8 @@ def __html2table__(htmlfile, tableindex=0):
 
 
 def __is_solsysobj__(row):
-    print(row)
-    if type(row['Proper Motion'][0]) == str or type(row['Proper Motion'][1]) == str:
+    if (np.abs(float(row['Proper Motion'][0].strip(' rad/s'))) > 1E-11 or
+            np.abs(float(row['Proper Motion'][1].strip(' rad/s'))) > 1E-11):
         has_propermotion = True
     else:
         has_propermotion = False
