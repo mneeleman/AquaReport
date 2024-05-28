@@ -6,6 +6,7 @@ from astropy.io import fits, ascii
 import os
 import json
 import lxml.html
+import re
 
 
 def cflag_output(pl_dir, proj_dir, to_jsonfile=False, jsonfile=None, get_imagestats=True, do_cutouts=False):
@@ -24,7 +25,7 @@ def cflag_output(pl_dir, proj_dir, to_jsonfile=False, jsonfile=None, get_imagest
         return strct
     else:
         if jsonfile is None:
-            jsonfile = strct['proposal_code'] + '_' + '_'.join(strct['mous_uid'].split(':/')) + '.json'
+            jsonfile = strct['proposal_code'] + '_' + '_'.join(re.split('[:/]', strct['mous_uid'])) + '.json'
         with open(jsonfile, 'w') as fp:
             json.dump(strct, fp)
 
