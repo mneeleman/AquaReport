@@ -259,7 +259,7 @@ def __get_statspermous__(strct, weblog_dir):
     spw_table = __html2table__(ebs[0] + '/t2-2-2.html')
     strct['n_spw'] = len(spw_table)
     strct['spw_list'] = [int(row['Real ID']) for row in spw_table]
-    strct['virtualspw_list'] = [row['Virtual ID'] for row in spw_table]
+    strct['virtualspw_list'] = [int(row['Virtual ID']) for row in spw_table]
     strct['bands'] = list(np.unique([row['Band'] for row in spw_table]))
 
 
