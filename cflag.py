@@ -200,13 +200,13 @@ def __get_statsperspw__(strct, weblog_dir):
         print('__get_statsperspw: no valid EBs present in {}'.format(weblog_dir))
     spw_table = __html2table__(ebs[0] + '/t2-2-2.html')
     for row in spw_table:
-        strct[row['Real ID']] = {}
-        strct[row['Real ID']]['spw_freq'] = str(row['Frequency (TOPO)'][1])
-        strct[row['Real ID']]['spw_width'] = str(row['Bandwidth (TOPO)'])
-        strct[row['Real ID']]['spw_nchan'] = int(row['Channels (TOPO)'][0])
-        strct[row['Real ID']]['chan_width_freq'] = str(row['Channels (TOPO)'][2])
-        strct[row['Real ID']]['chan_width_vel'] = str(row['Channels (TOPO)'][3])
-        strct[row['Real ID']]['nbin_online'] = int(row['Channels (TOPO)'][1])
+        strct['spw{}'.format(int(row['Real ID']))] = {}
+        strct['spw{}'.format(int(row['Real ID']))]['spw_freq'] = str(row['Frequency (TOPO)'][1])
+        strct['spw{}'.format(int(row['Real ID']))]['spw_width'] = str(row['Bandwidth (TOPO)'])
+        strct['spw{}'.format(int(row['Real ID']))]['spw_nchan'] = int(row['Channels (TOPO)'][0])
+        strct['spw{}'.format(int(row['Real ID']))]['chan_width_freq'] = str(row['Channels (TOPO)'][2])
+        strct['spw{}'.format(int(row['Real ID']))]['chan_width_vel'] = str(row['Channels (TOPO)'][3])
+        strct['spw{}'.format(int(row['Real ID']))]['nbin_online'] = int(row['Channels (TOPO)'][1])
     pass
 
 
@@ -258,7 +258,7 @@ def __get_statspermous__(strct, weblog_dir):
     strct['ephem_science'] = np.array(ephem_targets).size > 0
     spw_table = __html2table__(ebs[0] + '/t2-2-2.html')
     strct['n_spw'] = len(spw_table)
-    strct['spw_list'] = [row['Real ID'] for row in spw_table]
+    strct['spw_list'] = [int(row['Real ID']) for row in spw_table]
     strct['virtualspw_list'] = [row['Virtual ID'] for row in spw_table]
     strct['bands'] = list(np.unique([row['Band'] for row in spw_table]))
 
