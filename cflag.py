@@ -73,6 +73,7 @@ def __scrape_weblog__(strct, pl_dir, proj_dir):
     else:
         __get_statspermous__(strct, wllist[-1])
         __get_statspereb__(strct, wllist[-1])
+        __get_statsperspw__(strct, wllist[-1])
 
 
 def __scrape_flagfiles__(strct, pl_dir, proj_dir):
