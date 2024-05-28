@@ -8,7 +8,7 @@ import json
 import lxml.html
 
 
-def cflag_output(pl_dir, proj_dir, to_jsonfile=False, jsonfile=None, get_imagestats=True):
+def cflag_output(pl_dir, proj_dir, to_jsonfile=False, jsonfile=None, get_imagestats=True, do_cutouts=False):
     strct = {'pipeline_dir': pl_dir, 'project_dir': proj_dir}
     __scrape_aquareport__(strct, pl_dir, proj_dir)
     __scrape_weblog__(strct, pl_dir, proj_dir)
@@ -19,7 +19,7 @@ def cflag_output(pl_dir, proj_dir, to_jsonfile=False, jsonfile=None, get_imagest
         for image in strct['image_list']:
             print('cflag_output: working on {0}, {1:3.1f}%'.format(image, strct['image_list'].index(image) /
                                                                    len(strct['image_list']) * 100))
-            __get_imagestats__(strct, image, working_dir)
+            __get_imagestats__(strct, image, working_dir, do_cutouts=do_cutouts)
     if not to_jsonfile:
         return strct
     else:
@@ -112,18 +112,22 @@ def __get_imagelist__(strct, pl_dir, proj_dir, return_workingdir=False):
             return '/'.join(imlist[0].split('/')[:-1]) + '/'
 
 
-def __get_imagestats__(strct, image, working_dir):
+def __get_imagestats__(strct, image, working_dir, do_cutouts=False):
     header, im, im_pbcor, im_pb, im_mask = __load_images__(image, working_dir)
     header.remove('HISTORY', remove_all=True)
     string_header = header.tostring()
     im_rms, im_rmsidx, im_mad = __get_rms__(im, im_pb, im_mask)
     im_max, im_maxidx = __get_max__(im)
-    rms_cutouts, rms_channels = __get_cutouts__(im, im_rmsidx)
-    max_cutouts, max_channels = __get_cutouts__(im, im_maxidx)
-    stat_strct = {'header': string_header, 'target': header['OBJECT'], 'spw': header['SPW'], 'type': header['FILNAM05'],
-                  'rms': im_rms, 'rms_channels': rms_channels, 'rms_cutouts': rms_cutouts, 'mad': im_mad,
-                  'im_rmsidx': im_rmsidx, 'max': im_max, 'max_channels': max_channels, 'max_cutouts': max_cutouts,
-                  'im_maxidx': im_maxidx}
+    if do_cutouts:
+        rms_cutouts, rms_channels = __get_cutouts__(im, im_rmsidx)
+        max_cutouts, max_channels = __get_cutouts__(im, im_maxidx)
+        stat_strct = {'header': string_header, 'target': header['OBJECT'], 'spw': header['SPW'],
+                      'type': header['FILNAM05'], 'rms': im_rms, 'rms_channels': rms_channels,
+                      'rms_cutouts': rms_cutouts, 'mad': im_mad, 'im_rmsidx': im_rmsidx, 'max': im_max,
+                      'max_channels': max_channels, 'max_cutouts': max_cutouts, 'im_maxidx': im_maxidx}
+    else:
+        stat_strct = {'header': string_header, 'target': header['OBJECT'], 'spw': header['SPW'],
+                      'type': header['FILNAM05'], 'rms': im_rms, 'mad': im_mad, 'max': im_max, 'im_maxidx': im_maxidx}
     strct[image] = stat_strct
 
 
