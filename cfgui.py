@@ -262,7 +262,6 @@ class ApplicationWindow(QtWidgets.QWidget):
                 criterion = {'==': x[ly][self.criterion1.text()] == crit, '!=': x[ly][self.criterion1.text()] != crit,
                              '>=': x[ly][self.criterion1.text()] >= crit, '<=': x[ly][self.criterion1.text()] <= crit,
                              'contains': str(crit) in str(x[ly][self.criterion1.text()])}
-                print(y, x[ly][self.criterion1.text()], criterion[self.criterion2.currentText()])
                 if not criterion[self.criterion2.currentText()]:
                     del x[ly]
                     x[x_list].remove(y)
