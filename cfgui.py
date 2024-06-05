@@ -287,11 +287,11 @@ class ApplicationWindow(QtWidgets.QWidget):
 def main():
     if len(sys.argv) == 1:
         print('cfgui: taking current directory as input')
-        qapp = QtWidgets.QApplication()
+        qapp = QtWidgets.QApplication(['1'])
         # appw = ApplicationWindow(os.getcwd())
         appw = ApplicationWindow('/Users/mneelema/PLWG/TestData/CF/Benchmark2023Json')  # for testing puproses
     else:
-        qapp = QtWidgets.QApplication()
+        qapp = QtWidgets.QApplication(['1'])
         appw = ApplicationWindow(sys.argv[1])
     appw.show()
     # appw.activateWindow()
